@@ -1,0 +1,70 @@
+$color-theme: #518cff;
+
+$color-red:rgba(227, 60, 100, 1);
+$color-orange: rgba(255, 87, 51, 1);
+$color-yellow: rgba(255, 195, 0, 1);
+$color-green: rgba(0, 186, 173, 1);
+$color-blue: rgba(86, 128, 250, 1);
+$color-blue-light: rgba(224, 235, 255, 1);
+$color-purple: rgba(129, 126, 244, 1);
+
+
+$color-font-light: rgba(229, 229, 229, 1);
+$color-font-gray: rgba(128, 128, 128, 1);
+$color-font-gray-light: rgba(166, 166, 166, 1);
+$color-font-black: rgba(56, 56, 56, 1);
+$color-font-blue-deep: #001133;
+
+$color-bg-mask: rgba(0, 0, 0, .3);
+
+$font-xs: .5rem;
+$font-sm: .75rem;
+$font-md: 1rem;
+$font-lg: 1.25rem;
+
+$padding-xs: .25rem;
+$padding-sm: .5rem;
+$padding-md: .75rem;
+$padding-lg: 1rem;
+$padding-xl: 1.25rem;
+
+$margin-xs: .25rem;
+$margin-sm: .5rem;
+$margin-md: .75rem;
+$margin-lg: 1rem;
+$margin-xl: 1.25rem;
+
+$border-xs: 1px;
+$border-sm: .05rem;
+$border-md: .25rem;
+$border-lg: .5rem;
+
+$label-icon-size: 2rem;
+$user-avatar-size: 3.5rem;
+$box-shadow-card: 0px 0px .85rem rgba(117, 123, 255, 0.3);
+$border-radius-card: .75rem;
+$border-raduis-label: .25rem;
+
+%display-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+:focus {
+  outline: none;
+}

@@ -1,0 +1,64 @@
+@import "~taro-ui/dist/style/components/flex.scss";
+@import '../../../app.scss';
+
+.choose-role {
+  @extend %display-flex;
+  justify-content: center;
+  padding: $padding-lg 0;
+  &__header {
+    font-size: $font-lg;
+    font-weight: bold;
+    color: $color-theme;
+  }
+  &__main {
+    @extend %display-flex;
+    width: 100%;
+    padding: $padding-lg 0;
+
+  }
+  &__main-item {
+    width: 1/3 * 100%;
+    @extend %display-flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: $padding-lg;
+    box-sizing: border-box;
+
+  }
+  &__main-item-avatar {
+    @extend %display-flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 48px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0, 18%) ;
+    margin-bottom: $margin-lg;
+    &--selected {
+      background-color: #54c1fb;
+    }
+  }
+  &__main-item-avatar-img {
+    width: 100px;
+    height: 100px;
+  }
+  &__main-item-name {
+    @extend %display-flex;
+    justify-content: center;
+    width: 100%;
+    color: $color-font-blue-deep
+  }
+  &__footer {
+    @extend %display-flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  &__footer-btn {
+    @extend %display-flex;
+    justify-content: center;
+    width: 80vw;
+    background-color: $color-theme;
+    color: #ffffff;
+    border-radius: 20px;
+  }
+}
