@@ -32,7 +32,8 @@ http.interceptors.response.use(
       if(res.status.toString().charAt(0) === '2'){
         const {url} = res.config;
         if(url === '/user/login-by-phone'){
-          setToken(res.data)
+          console.log('login', res.data);
+          setToken(JSON.parse(res.data).token)
         }
         return res.data
       }
