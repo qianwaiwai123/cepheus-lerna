@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {Button, Image, View} from "@tarojs/components";
 import Taro from '@tarojs/taro'
 import './index.scss'
@@ -11,54 +11,54 @@ type PageState = {
   }[]
 }
 
-export default class ChooseRole extends React.Component<{}, PageState>{
+export default class ChooseDevice extends React.Component<{}, PageState>{
 
   constructor(props){
     super(props);
     this.state = {
       roles: [
         {
-          name: '我',
+          name: '设备一',
           selected: true,
           avatar: 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/avatar.png'
         },
         {
-          name: '妈妈',
+          name: '设备二',
           selected: false,
           avatar: 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/avatar.png'
         },
         {
-          name: '爸爸',
+          name: '设备三',
           selected: false,
           avatar: 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/avatar.png'
         },
         {
-          name: '爷爷',
+          name: '设备四',
           selected: false,
           avatar: 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/avatar.png'
         },
         {
-          name: '奶奶',
+          name: '设备五',
           selected: false,
           avatar: 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/avatar.png'
         },
         {
-          name: '姥姥',
+          name: '设备六',
           selected: false,
           avatar: 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/avatar.png'
         },
         {
-          name: '姥爷',
+          name: '设备七',
           selected: false,
           avatar: 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/avatar.png'
         },
         {
-          name: '老伴',
+          name: '设备八',
           selected: false,
           avatar: 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/avatar.png'
         },
         {
-          name: '其他',
+          name: '设备九',
           selected: false,
           avatar: 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/avatar.png'
         }
@@ -89,21 +89,19 @@ export default class ChooseRole extends React.Component<{}, PageState>{
     })
   }
 
-
   render(){
     const {roles} = this.state;
     return (
       <View className='choose-role'>
-        <View className='choose-role__header'>请为你的设备选择一个使用者</View>
+        <View className='choose-role__header'>请选择一个设备</View>
         <View className='choose-role__main'>
           {roles.map((item, index) => {
             return (
               <View key={index} className='choose-role__main-item' onClick={this.handleChangeRole.bind(this, index)}>
                 <View className={`choose-role__main-item-avatar ${item.selected? 'choose-role__main-item-avatar--selected':''}`}>
-                    <Image mode='widthFix' className='choose-role__main-item-avatar-img'
-                      src={item.selected? 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/avatar.png':
-                        'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/avatar-blue.png'}
-                    />
+                  <Image mode='widthFix' className='choose-role__main-item-avatar-img'
+                    src='https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/robot-suqure.png'
+                  />
                 </View>
                 <View className='choose-role__main-item-name'>{item.name}</View>
               </View>

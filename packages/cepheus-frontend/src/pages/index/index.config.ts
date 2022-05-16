@@ -1,4 +1,6 @@
 export default {
   navigationBarTitleText: '小乐健康',
-  navigationBarBackgroundColor:'#f8faff'
+  navigationBarBackgroundColor:'#538dfe',
+  navigationBarTextStyle: "white",
+  enableShareAppMessage: true
 }

@@ -4,7 +4,6 @@ import { AtCalendar } from 'taro-ui'
 
 import { add, minus, asyncAdd, toggle, errorSelect } from '../../actions/counter'
 
-import Tabbar from "../../components/Tabbar";
 
 // @ts-ignore
 import mock from '../../mock/userinfo'
@@ -409,8 +408,7 @@ class Sleep extends React.Component<IProps, PageState>   {
             <View className='taro-health-calendar-mask' onClick={this.closeCalender} />
             <AtCalendar className='taro-health-calendar-content' onDayClick={(e) => this.dayClick(e)} />
           </View>
-
-          <Tabbar name='sleep' />
+          
         </View>
       )
     } else {

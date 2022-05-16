@@ -11,7 +11,8 @@ export default {
     {
       "root": "packageA",
       "pages": [
-        "pages/chooseRole/index"
+        "pages/chooseRole/index",
+        "pages/chooseDevice/index"
       ]
     }
   ],

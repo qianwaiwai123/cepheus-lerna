@@ -1,11 +1,13 @@
 import React from 'react'
-import {Image, Switch, Text, View} from "@tarojs/components";
+import {Image, Text, View} from "@tarojs/components";
 import Taro from '@tarojs/taro'
 import Calendar from "custom-calendar-taro";
+import CustomCalendar from "custom-calendar-taro/src/components/Calendar"
 import { connect } from '../../utils/connect'
 import './index.scss'
 import IconFont from "../../components/iconfont";
-import Tabbar from "../../components/Tabbar";
+import HealthReport from "../../components/healthReport"
+import {errorSelect} from "../../actions/counter";
 
 
 // #region 书写注意
@@ -19,6 +21,9 @@ import Tabbar from "../../components/Tabbar";
 // #endregion
 
 type PageStateProps = {
+  counter: {
+    index: any
+  },
   device: {
     deviceList: {
       id: string,
@@ -34,7 +39,8 @@ type PageStateProps = {
 }
 
 type PageDispatchProps = {
-  addDevice: () => void
+  addDevice: () => void,
+  errorSelect: (current: number) => void
 }
 
 type PageOwnProps = {}
@@ -47,21 +53,20 @@ type IProps = PageStateProps & PageDispatchProps & PageOwnProps
 interface Index {
   props: IProps;
 }
-const mapStateToProps = ({device}) => ({
-  device
+const mapStateToProps = ({device, counter}) => ({
+  device, counter
 });
 
-const mapDispatchToProps = () => ({
-
+const mapDispatchToProps = (dispatch) => ({
+  errorSelect(current) {
+    dispatch(errorSelect(current))
+  }
 });
 
 
 @connect(mapStateToProps, mapDispatchToProps)
 class Index extends React.Component<IProps, PageState> {
 
-  state = {
-    calendar: null
-  };
 
 
   componentWillReceiveProps (nextProps) {
@@ -74,6 +79,13 @@ class Index extends React.Component<IProps, PageState> {
 
   componentDidHide () { }
 
+  onShareAppMessage() {
+
+  }
+
+  calendar:CustomCalendar;
+
+
 
   handleNav(){
     Taro.navigateTo({
@@ -83,20 +95,12 @@ class Index extends React.Component<IProps, PageState> {
 
   handlePre(){
     Taro.vibrateShort();
-    const {calendar} = this.state;
-    if(calendar){
-      // @ts-ignore
-      calendar.goPre()
-    }
+    this.calendar.goPre()
   }
 
   handleNext(){
     Taro.vibrateShort();
-    const {calendar} = this.state;
-    if(calendar){
-      // @ts-ignore
-      calendar.goNext()
-    }
+    this.calendar.goNext()
   }
 
   handleExtraDevice(){
@@ -106,14 +110,74 @@ class Index extends React.Component<IProps, PageState> {
     })
   }
 
+  handleSwitchDevice(){
+    Taro.vibrateShort();
+    Taro.navigateTo({
+      url: '/packageA/pages/chooseDevice/index'
+    })
+  }
+
+  handleLoginByPhone(){
+    Taro.vibrateShort();
+    Taro.navigateTo({
+      url: '/pages/loginByPhone/index'
+    })
+  }
+
   render () {
     const {deviceList} = this.props.device;
     return (
       <View className='container'>
+        <View className='page-header'>
+          <View className='page-header__left' onClick={this.handleSwitchDevice.bind(this)}>
+            <Image className='page-header__image' mode='widthFix' onClick={this.handleLoginByPhone.bind(this)} src='https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/robot.png' />
+            <Text className='page-header__switch'>切换</Text>
+            <IconFont name='qiehuan' color='#fff' size={40} />
+          </View>
+          <View className='page-header__right' onClick={this.handleExtraDevice.bind(this)}>
+            <IconFont name='addto' color='#fff' size={50} />
+            <Text className='page-header__add-device'>添加设备</Text>
+          </View>
+        </View>
+        <View className='device'>
+          {deviceList&&deviceList.map((item) => {
+            return (
+              <View className='device__item'>
+                <View className='device__header'>
+                  <view className='device__header-left'>
+                    <IconFont name='morentouxiang' size={100} color='#518cff' />
+                    <View className='device__header-info'>
+                      <View className='device__header-name'>{item.name}</View>
+                      <View className='device__header-id'>{item.id}</View>
+                    </View>
+                  </view>
+                  <View className='device__header-right'>
+                    {item.status === 'on'? (
+                      <View className='device__header-right--on'>
+                        <Text className='device__header-right-status'>设备实时监控中</Text>
+                        <IconFont name='xindiantu' size={48} />
+                      </View>
+                    ): (
+                      <View className='device__header-right--off'>
+                        <Text className='device__header-right-status'>设备离线了</Text>
+                        <IconFont name='xindiantu' size={48} color='#99a0ad' />
+                      </View>
+                    )}
+                    <View className='device__setting'>
+                      <Text className='device__setting--space'>设置</Text>
+                      <IconFont name='shezhitianchong' size={40} color='#808080' />
+                    </View>
+                  </View>
+                </View>
+              </View>
+            )
+          })}
+        </View>
+
         <View className='calendar'>
           <View className='calendar__header'>
             <View className='calendar__left'>
-              四月-2022
+              五月-2022
             </View>
             <View className='calendar__right'>
               <View onClick={this.handlePre.bind(this)}>
@@ -127,7 +191,7 @@ class Index extends React.Component<IProps, PageState> {
           <Calendar
             selectedDateColor='#54c1fb'
             bindRef={ref => {
-              this.setState({calendar: ref})
+              this.calendar = ref
             }}
             onDayClick={(item) => console.log(item)}
             onDayLongPress={(item) => console.log(item)}
@@ -136,61 +200,9 @@ class Index extends React.Component<IProps, PageState> {
             hideController
           />
         </View>
-        <View className='device'>
-        {deviceList&&deviceList.map((item) => {
-          return (
-            <View className='device__item'>
-              <View className='device__header'>
-                <view className='device__header-left'>
-                  <IconFont name='morentouxiang' size={80} color='#518cff' />
-                  <View className='device__header-info'>
-                    <View className='device__header-name'>{item.name}</View>
-                    <View className='device__header-id'>{item.id}</View>
-                  </View>
-                </view>
-                <View className='device__header-right'>
-                  {item.status === 'on'? (
-                    <View className='device__header-right--on'>
-                      <Text className='device__header-right-status'>设备实时监控中</Text>
-                      <IconFont name='xindiantu' size={48} />
-                    </View>
-                  ): (
-                    <View className='device__header-right--off'>
-                      <Text className='device__header-right-status'>设备离线了</Text>
-                      <IconFont name='xindiantu' size={48} color='#99a0ad' />
-                    </View>
-                  )}
-                  <View className='device__setting'>
-                    <Text className='device__setting--space'>设置</Text>
-                    <IconFont name='shezhitianchong' size={40} color='#808080' />
-                  </View>
-                </View>
-              </View>
-              <View className='device__item-line'>
-                {item.devices.map((device) => {
-                  return (
-                      <View className='device__item-product'>
-                        <View className='device__item-product-left'>
-                          <Image className='device__item-product-image' mode='aspectFit' src={device.image} />
-                          <Text className='device__item-product-name'>{device.name}</Text>
-                        </View>
-                        <View>
-                          <Switch />
-                        </View>
-                      </View>
-                  )
-                })}
-
-              </View>
-            </View>
-          )
-        })}
+        <View className='health-report'>
+          <HealthReport    counter={this.props.counter} errorSelect={this.props.errorSelect} />
         </View>
-        <View className='add' onClick={this.handleExtraDevice.bind(this)}>
-          <IconFont name='add' color='#ffffff' size={60} />
-          <Text className='add__text'>添加更多设备</Text>
-        </View>
-        <Tabbar name='home' />
       </View>
     )
   }

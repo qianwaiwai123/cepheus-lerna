@@ -1,0 +1,1023 @@
+@import "../../app.scss";
+@import '~taro-ui/dist/style/components/calendar.scss';
+@import "~taro-ui/dist/style/components/button.scss";
+@import "~taro-ui/dist/style/components/loading.scss";
+
+
+@mixin select-arrow($top, $left, $right, $color) {
+  border-top: $top solid $color;
+  border-left: $left solid transparent;
+  border-right: $right solid transparent;
+
+  margin-left: $margin-sm;
+}
+
+.flex-row-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  box-shadow: $box-shadow-card;
+  border-radius: $border-radius-card;
+  padding: $padding-lg;
+  margin-bottom: $margin-lg;
+}
+
+.label {
+  @extend .flex-row-center;
+
+  margin-left: $border-lg;
+  margin-bottom: $margin-lg;
+
+  color: $color-font-gray;
+  font-size: $font-md;
+}
+
+.label-icon {
+  width: $label-icon-size;
+  height: $label-icon-size;
+  margin-right: $margin-md;
+}
+
+.arrow-show {
+  width: 10px;
+  height: 10px;
+  border-top: 1px solid $color-yellow;
+  border-right: 1px solid $color-yellow;
+  transform: rotate(-45deg);
+
+  @extend .flex-row-center;
+  margin-right: $margin-md;
+
+  position: relative;
+
+  &:after {
+    content: "";
+    position: absolute;
+    right: 6px;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    border-top: 1px solid $color-yellow;
+    border-right: 1px solid $color-yellow;
+    transform: translate(0, 6px);
+  }
+}
+
+.arrow-hide {
+  @extend .arrow-show;
+  border-top: 1px solid $color-blue;
+  border-right: 1px solid $color-blue;
+  transform: rotate(135deg);
+
+  &:after {
+    content: "";
+    border-top: 1px solid $color-blue;
+    border-right: 1px solid $color-blue;
+  }
+}
+
+.field-item {
+  @extend .flex-row-center;
+  justify-content: space-between;
+
+  margin-bottom: $margin-md * 2;
+  padding-right: $padding-lg;
+}
+
+.field-item-title {
+  font-size: $font-md;
+  color: $color-font-black;
+}
+
+.field-item-value {
+  font-size: $font-md;
+  color: $color-font-gray-light;
+}
+
+// 竖屏
+.taro-health {
+
+  // 用户信息
+  &-base {
+    padding: $padding-lg;
+
+    // 用户信息
+    &__user {
+      @extend .flex-row-center;
+
+      // 头像
+      &-avatar {
+        width: $user-avatar-size;
+        height: $user-avatar-size;
+        overflow: hidden;
+        border-radius: 50%;
+        border: $border-lg solid $color-blue-light;
+
+        @extend .flex-row-center;
+        justify-content: center;
+        margin-right: $margin-lg;
+
+        &-image {
+          height: 100%;
+        }
+      }
+
+      // 信息
+      &-info {
+        flex: 1;
+      }
+
+      // 姓名
+      &-realname {
+        width: 100%;
+
+        @extend .flex-row-center;
+        justify-content: space-between;
+        margin-bottom: $margin-md;
+
+        font-weight: bold;
+      }
+
+      // 切换按钮
+      &-toggle {
+        @extend .flex-row-center;
+
+        color: $color-font-light;
+        font-size: $font-md;
+        font-weight: normal;
+        letter-spacing: 4px;
+
+        &-icon {
+          width: 28px;
+          height: 28px;
+          margin-left: $margin-md;
+        }
+      }
+
+      // 称呼
+      &-nickname {
+        display: inline;
+        padding: $padding-xs $padding-md;
+        font-size: $font-md;
+        color: #FFFFFF;
+        background-color: $color-purple;
+        border-radius: 999em;
+        font-size: $font-sm;
+      }
+    }
+
+    // 日期选择按钮
+    &__selector {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px $padding-lg;
+      margin: $margin-lg 0 0 $border-lg;
+
+      font-size: $font-md;
+      letter-spacing: 4px;
+      font-weight: bold;
+      color: $color-blue;
+      // border: .5px solid $color-blue;
+      border-radius: 999em;
+      box-shadow: 0 0 4px 1px rgba(74, 144, 226, 1), 0 10px 22px rgba(0, 0, 0, 0.1);
+
+      &-arrow {
+        @include select-arrow(.6rem, .375rem, .375rem, $color-blue);
+        border-radius: 2px;
+      }
+
+      // 暂时隐藏
+      // display: none;
+    }
+  }
+
+  // 睡眠监测报告
+  &-sleep {
+    padding: $padding-lg;
+
+    // 标签
+    &__label {
+      @extend .label;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      &-icon {
+        @extend .label-icon;
+      }
+    }
+
+    &__label-left {
+      @extend %display-flex;
+    }
+
+    &__label-btn {
+      @extend %display-flex;
+      flex-wrap: nowrap;
+      border: none;
+    }
+
+    &__label-btn-main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__label-btn-share {
+      padding-left: 10px;
+      color: #a6a6a6;
+      font-size: 28px;
+    }
+
+    // 卡片内容
+    &__card {
+      @extend .card;
+
+      &-item {
+        &-show {
+          flex: 1;
+
+          @extend .flex-row-center;
+          justify-content: flex-end;
+
+          font-size: $font-md;
+          color: $color-yellow;
+
+          transition: all .05s;
+
+          &--hide {
+            color: $color-blue;
+          }
+        }
+
+        &-arrow {
+          @extend .arrow-show;
+        }
+
+        &-arrow--hide {
+          @extend .arrow-hide;
+        }
+      }
+
+      // 标签
+      &-label {
+        @extend .flex-row-center;
+
+        margin-bottom: $margin-lg;
+
+        &-title {
+          font-size: $font-md;
+        }
+
+        &-icon {
+          width: $label-icon-size;
+          height: $label-icon-size;
+          margin-right: $margin-md;
+        }
+      }
+
+      &-content {
+        transition: opacity 0s, height .25s, z-index .35s;
+
+        &--hide {
+          height: 0;
+          opacity: 0;
+          z-index: -1;
+        }
+
+        &-item {
+          @extend .field-item;
+
+          &-title {
+            @extend .field-item-title;
+          }
+
+          &-value {
+            @extend .flex-row-center;
+            @extend .field-item-value;
+
+            position: relative;
+
+            &-text {
+              color: $color-blue;
+            }
+
+            &-arrow {
+              @include select-arrow(16px, 12px, 12px, $color-orange)
+            }
+
+            // 异常类型选择 下拉框
+            &-error {
+              @extend .card;
+              padding-top: 0;
+              padding-bottom: 0;
+
+              position: absolute;
+              right: 0;
+              top: 2rem;
+              z-index: 999;
+              background-color: #FFFFFF;
+              width: 6rem;
+              transition: .25s all;
+
+              &--active {
+                height: 0;
+                opacity: 0;
+                z-index: -1;
+                transform: translateY(-1rem);
+              }
+
+              &-item {
+                @extend .flex-row-center;
+                white-space: nowrap;
+                padding: $padding-md 0;
+
+                &:nth-last-child(1) {
+                  margin-bottom: 0;
+                }
+              }
+
+              &-text {
+                flex: 1;
+                text-align: end;
+                margin-right: $margin-md;
+                color: $color-font-black;
+              }
+
+              &-text--active {
+                flex: 1;
+                text-align: end;
+                margin-right: $margin-md;
+                color: $color-blue;
+              }
+
+              &-select {
+                color: transparent;
+              }
+
+              &-select--active {
+                color: $color-blue;
+              }
+            }
+          }
+        }
+      }
+
+      &-status {
+        // @extend .flex-row-center;
+
+        // &-label {
+        //   background-color: $color-green;
+        //   border-radius: $border-raduis-label;
+        //   color: #FFFFFF;
+        //   font-size: $font-sm;
+
+        //   padding: $padding-xs $padding-md;
+        //   margin-right: $margin-md;
+
+        //   &--warn {
+        //     background-color: $color-orange;
+        //     border-radius: $border-raduis-label;
+        //     color: #FFFFFF;
+        //     font-size: $font-sm;
+
+        //     padding: $padding-xs $padding-md;
+        //     margin-right: $margin-md;
+        //   }
+        // }
+
+        // &-text {
+        //   color: $color-blue;
+        //   font-size: $font-sm;
+        // }
+
+        @extend .flex-column-center;
+
+        &-label {
+          background-color: $color-green;
+          border-radius: $border-raduis-label;
+          color: #FFFFFF;
+          font-size: $font-lg;
+
+          padding: $padding-xs $padding-lg;
+          margin-right: $margin-md;
+          margin-bottom: $margin-sm;
+
+          &--warn {
+            background-color: $color-orange;
+            border-radius: $border-raduis-label;
+            color: #FFFFFF;
+            font-size: $font-lg;
+
+            padding: $padding-xs $padding-lg;
+            margin-right: $margin-md;
+            margin-bottom: $margin-sm;
+          }
+        }
+
+        &-text {
+          color: $color-blue;
+          font-size: $font-sm;
+        }
+      }
+    }
+  }
+
+  // 睡眠呼吸心率状况
+  &-breathing {
+    padding: $padding-lg;
+
+    // 标签
+    &__label {
+      @extend .label;
+
+      &-icon {
+        @extend .label-icon;
+      }
+    }
+
+    // 暂时隐藏
+    display: none;
+  }
+
+  // 健康报告
+  &-report {
+    padding: $padding-lg;
+
+    // 标签
+    &__label {
+      @extend .label;
+
+      &-icon {
+        @extend .label-icon;
+      }
+    }
+
+    // 暂时隐藏
+    display: none;
+  }
+
+  // 紧急求助历史状况
+  &-help {
+    padding: $padding-lg;
+    margin-bottom: 200px;
+    // 标签
+    &__label {
+      @extend .label;
+
+      &-icon {
+        @extend .label-icon;
+      }
+    }
+
+    &__card {
+      @extend .card;
+
+      &-item {
+        @extend .flex-row-center;
+
+        justify-content: space-between;
+        margin-bottom: $margin-lg;
+
+        color: $color-red;
+        font-size: $font-sm;
+
+        &-info {
+
+          &-date {
+            margin-right: $margin-md;
+            font-weight: bold;
+          }
+
+          &-action {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+
+  // 日历弹窗
+  &-calendar {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translate(0, 0);
+    transition: opacity .3s, z-index .5s, transform .3s ease-in-out;
+
+    @extend .flex-row-center;
+    justify-content: center;
+
+    &--hide {
+      opacity: 0;
+      z-index: -1;
+      transform: scale(.05);
+    }
+
+    &-mask {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: $color-bg-mask;
+      z-index: 1001;
+    }
+
+    &-content {
+      @extend .card;
+      margin: $margin-lg;
+      z-index: 1002;
+      background-color: white;
+      width: 100% !important;
+    }
+  }
+}
+
+// 横屏
+//.taro-health--horizontal {
+//  background: url("https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/xdu-leyinlin/background.png");
+//  background-size: 100% auto;
+//  background-position: center;
+//  background-repeat: no-repeat;
+//  width: calc(100vw - #{$padding-lg} * 2);
+//  height: calc(100vh - #{$padding-lg} * 2);
+//  padding: $padding-lg;
+//
+//  display: flex;
+//  align-items: center;
+//  justify-content: center;
+//
+//  .taro-health {
+//    flex: 1;
+//
+//    display: flex;
+//    align-items: center;
+//    justify-content: center;
+//
+//    border-radius: $border-lg;
+//    background-color: rgba(255, 255, 255, .4);
+//
+//    // 用户信息
+//    &-base {
+//      padding: 0 $padding-lg $padding-lg * 2 0;
+//
+//      // 用户信息
+//      &__user {
+//        @extend .flex-row-center;
+//
+//        // 头像
+//        &-avatar {
+//          width: $user-avatar-size;
+//          height: $user-avatar-size;
+//          overflow: hidden;
+//          border-radius: 50%;
+//          border: $border-md solid $color-blue-light;
+//
+//          @extend .flex-row-center;
+//          justify-content: center;
+//          margin-right: $margin-lg;
+//
+//          &-image {
+//            height: 100%;
+//          }
+//        }
+//
+//        // 信息
+//        &-info {
+//          flex: 1;
+//        }
+//
+//        // 姓名
+//        &-realname {
+//          width: 100%;
+//          color: #FFFFFF;
+//
+//          @extend .flex-row-center;
+//          justify-content: space-between;
+//          margin-bottom: 0;
+//
+//          font-weight: bold;
+//        }
+//
+//        // 切换按钮
+//        &-toggle {
+//          @extend .flex-row-center;
+//
+//          color: $color-font-light;
+//          font-size: $font-md;
+//          font-weight: normal;
+//          letter-spacing: 4px;
+//
+//          &-icon {
+//            width: 28px;
+//            height: 28px;
+//            margin-left: $margin-md;
+//          }
+//
+//          display: none;
+//        }
+//
+//        // 称呼
+//        &-nickname {
+//          display: inline-flex;
+//          align-items: center;
+//          font-size: $font-md;
+//          color: #FFFFFF;
+//          background-color: transparent;
+//          border-radius: 999em;
+//          font-size: $font-sm;
+//          padding: $padding-xs 0;
+//
+//          &-icon {
+//            width: 40px;
+//            height: 40px;
+//            margin-right: $margin-sm;
+//
+//            &:nth-last-child(1) {
+//              width: 28px;
+//              height: 28px;
+//              margin-right: 0;
+//            }
+//          }
+//
+//          &-text {
+//            margin-right: $margin-sm;
+//          }
+//        }
+//      }
+//
+//      // 日期选择按钮
+//      &__selector {
+//        display: inline-flex;
+//        align-items: center;
+//        padding: 4px $padding-lg;
+//        margin: $margin-lg 0 0 $border-lg;
+//
+//        font-size: $font-md;
+//        letter-spacing: 4px;
+//        font-weight: bold;
+//        color: $color-blue;
+//        // border: .5px solid $color-blue;
+//        border-radius: 999em;
+//        box-shadow: 0 0 4px 1px rgba(74, 144, 226, 1), 0 10px 22px rgba(0, 0, 0, 0.1);
+//
+//        &-arrow {
+//          @include select-arrow(.6rem, .375rem, .375rem, $color-blue);
+//          border-radius: 2px;
+//        }
+//
+//        // 暂时隐藏
+//        display: none;
+//      }
+//    }
+//
+//    // 睡眠监测报告
+//    &-sleep {
+//      flex: 1;
+//      display: flex;
+//      align-items: flex-end;
+//      justify-content: center;
+//
+//      &__item {
+//        flex: 1;
+//        flex-shrink: 0;
+//        height: 100%;
+//
+//        // display: flex;
+//        // flex-direction: column;
+//        // justify-content: space-between;
+//
+//        &:nth-last-child(1) {
+//          flex: 2;
+//          margin-left: $margin-lg;
+//        }
+//      }
+//
+//      // 标签
+//      &__label {
+//        @extend .label;
+//
+//        &-icon {
+//          @extend .label-icon;
+//        }
+//
+//        &-title {
+//          color: #FFFFFF;
+//        }
+//      }
+//
+//      // 卡片内容
+//      &__card {
+//        @extend .card;
+//        margin-bottom: 0;
+//        background-color: #FFFFFF;
+//
+//        &:nth-child(1) {
+//          padding: $padding-lg * 3;
+//        }
+//
+//        &-item {
+//          margin-bottom: $margin-lg;
+//
+//          &:nth-last-child(1) {
+//            margin-bottom: 0;
+//          }
+//
+//          &-show {
+//            flex: 1;
+//
+//            @extend .flex-row-center;
+//            justify-content: flex-end;
+//
+//            font-size: $font-md;
+//            color: $color-yellow;
+//
+//            transition: all .05s;
+//
+//            &--hide {
+//              color: $color-blue;
+//            }
+//
+//            display: none;
+//          }
+//
+//          &-arrow {
+//            @extend .arrow-show;
+//          }
+//
+//          &-arrow--hide {
+//            @extend .arrow-hide;
+//          }
+//        }
+//
+//        // 标签
+//        &-label {
+//          @extend .flex-row-center;
+//
+//          margin-bottom: $margin-lg;
+//
+//          &-title {
+//            font-size: $font-md;
+//          }
+//
+//          &-icon {
+//            width: $label-icon-size;
+//            height: $label-icon-size;
+//            margin-right: $margin-md;
+//          }
+//        }
+//
+//        &-content {
+//          padding: $padding-sm;
+//          transition: opacity 0s, height .25s, z-index .35s;
+//
+//          &--hide {
+//            height: 0;
+//            opacity: 0;
+//            z-index: -1;
+//          }
+//
+//          &-item {
+//            @extend .field-item;
+//            margin-bottom: $margin-md;
+//
+//            &:nth-last-child(1) {
+//              margin-bottom: 0;
+//            }
+//
+//            &-title {
+//              @extend .field-item-title;
+//            }
+//
+//            &-value {
+//              @extend .flex-row-center;
+//              @extend .field-item-value;
+//
+//              position: relative;
+//
+//              &-text {
+//                color: $color-blue;
+//              }
+//
+//              &-arrow {
+//                @include select-arrow(16px, 12px, 12px, $color-orange)
+//              }
+//
+//              // 异常类型选择 下拉框
+//              &-error {
+//                @extend .card;
+//                padding-top: 0;
+//                padding-bottom: 0;
+//
+//                position: absolute;
+//                right: 0;
+//                top: 2rem;
+//                z-index: 999;
+//                background-color: #FFFFFF;
+//                width: 6rem;
+//                transition: .25s all;
+//
+//                &--active {
+//                  height: 0;
+//                  opacity: 0;
+//                  z-index: -1;
+//                  transform: translateY(-1rem);
+//                }
+//
+//                &-item {
+//                  @extend .flex-row-center;
+//                  white-space: nowrap;
+//                  padding: $padding-md 0;
+//
+//                  &:nth-last-child(1) {
+//                    margin-bottom: 0;
+//                  }
+//                }
+//
+//                &-text {
+//                  flex: 1;
+//                  text-align: end;
+//                  margin-right: $margin-md;
+//                  color: $color-font-black;
+//                }
+//
+//                &-text--active {
+//                  flex: 1;
+//                  text-align: end;
+//                  margin-right: $margin-md;
+//                  color: $color-blue;
+//                }
+//
+//                &-select {
+//                  color: transparent;
+//                }
+//
+//                &-select--active {
+//                  color: $color-blue;
+//                }
+//              }
+//            }
+//          }
+//        }
+//
+//        &-status {
+//          @extend .flex-column-center;
+//
+//          &-label {
+//            background-color: $color-green;
+//            border-radius: $border-raduis-label;
+//            color: #FFFFFF;
+//            font-size: $font-lg;
+//
+//            padding: $padding-xs $padding-lg;
+//            margin-right: $margin-md;
+//            margin-bottom: $margin-sm;
+//
+//            &--warn {
+//              background-color: $color-orange;
+//              border-radius: $border-raduis-label;
+//              color: #FFFFFF;
+//              font-size: $font-lg;
+//
+//              padding: $padding-xs $padding-lg;
+//              margin-right: $margin-md;
+//              margin-bottom: $margin-sm;
+//            }
+//          }
+//
+//          &-text {
+//            color: $color-blue;
+//            font-size: $font-sm;
+//          }
+//        }
+//      }
+//    }
+//
+//    // 睡眠呼吸心率状况
+//    &-breathing {
+//      padding: $padding-lg;
+//
+//      // 标签
+//      &__label {
+//        @extend .label;
+//
+//        &-icon {
+//          @extend .label-icon;
+//        }
+//      }
+//
+//      // 暂时隐藏
+//      display: none;
+//    }
+//
+//    // 健康报告
+//    &-report {
+//      padding: $padding-lg;
+//
+//      // 标签
+//      &__label {
+//        @extend .label;
+//
+//        &-icon {
+//          @extend .label-icon;
+//        }
+//      }
+//
+//      // 暂时隐藏
+//      display: none;
+//    }
+//
+//    // 紧急求助历史状况
+//    &-help {
+//      padding: $padding-lg;
+//      // 标签
+//      &__label {
+//        @extend .label;
+//
+//        &-icon {
+//          @extend .label-icon;
+//        }
+//      }
+//
+//      &__card {
+//        @extend .card;
+//
+//        &-item {
+//          @extend .flex-row-center;
+//
+//          justify-content: space-between;
+//          margin-bottom: $margin-lg;
+//
+//          color: $color-red;
+//          font-size: $font-sm;
+//
+//          &-info {
+//
+//            &-date {
+//              margin-right: $margin-md;
+//              font-weight: bold;
+//            }
+//
+//            &-action {
+//              font-weight: bold;
+//            }
+//          }
+//        }
+//      }
+//
+//      display: none;
+//    }
+//
+//    // 日历弹窗
+//    &-calendar {
+//      position: fixed;
+//      z-index: 1000;
+//      top: 0;
+//      bottom: 0;
+//      left: 0;
+//      right: 0;
+//      transform: translate(0, 0);
+//      transition: opacity .3s, z-index .5s, transform .3s ease-in-out;
+//
+//      @extend .flex-row-center;
+//      justify-content: center;
+//
+//      &--hide {
+//        opacity: 0;
+//        z-index: -1;
+//        transform: scale(.05);
+//      }
+//
+//      &-mask {
+//        position: absolute;
+//        top: 0;
+//        bottom: 0;
+//        left: 0;
+//        right: 0;
+//        background-color: $color-bg-mask;
+//        z-index: 1001;
+//      }
+//
+//      &-content {
+//        @extend .card;
+//        margin: $margin-lg;
+//        width: 100%;
+//
+//        z-index: 1002;
+//        background-color: white;
+//      }
+//    }
+//  }
+//}
