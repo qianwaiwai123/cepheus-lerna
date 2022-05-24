@@ -7,7 +7,7 @@ import {getToken, setToken} from "../utils/tokens";
 
 const http = axios.create({
   baseURL: config.baseUrl,
-  timeout: 5000,
+  timeout: 10000,
   validateStatus(status){
     return status >= 200 && status < 500
   }
@@ -34,7 +34,7 @@ http.interceptors.response.use(
     if(res.status.toString().charAt(0) === '2'){
       const {url} = res.config;
       if(url === '/user/login-by-phone'){
-        setToken(res.data)
+        setToken(res.data.data.token)
       }
       return res.data
     }

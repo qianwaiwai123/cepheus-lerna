@@ -1,5 +1,5 @@
 import React from 'react'
-import {Image, Text, View} from "@tarojs/components";
+import { Text, View} from "@tarojs/components";
 import Taro from '@tarojs/taro'
 import Calendar from "custom-calendar-taro";
 import CustomCalendar from "custom-calendar-taro/src/components/Calendar"
@@ -29,6 +29,7 @@ type PageStateProps = {
       id: string,
       name: string,
       status: string,
+      age: number,
       devices: {
         name: string,
         status: boolean,
@@ -124,56 +125,78 @@ class Index extends React.Component<IProps, PageState> {
     })
   }
 
+  handleSetting(){
+    Taro.vibrateShort();
+    Taro.redirectTo({
+      url: '/pages/smartConfig/index'
+    })
+  }
+
   render () {
     const {deviceList} = this.props.device;
+    const customStyleGenerator = {
+      extraInfoStyle: {
+        position: "absolute",
+        fontSize: "0.5rem",
+        right: "-0.8rem",
+        top: "0",
+      },
+      dateStyle: {
+        marginTop: "0.6rem",
+        borderRadius: "30%",
+      },
+      markStyle: {
+        top: "auto",
+        bottom: "0",
+        right: "50%",
+        transform: "translateX(50%)" ,
+      },
+    };
     return (
       <View className='container'>
         <View className='page-header'>
-          <View className='page-header__left' onClick={this.handleSwitchDevice.bind(this)}>
-            <Image className='page-header__image' mode='widthFix' onClick={this.handleLoginByPhone.bind(this)} src='https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/robot.png' />
-            <Text className='page-header__switch'>切换</Text>
-            <IconFont name='qiehuan' color='#fff' size={40} />
-          </View>
-          <View className='page-header__right' onClick={this.handleExtraDevice.bind(this)}>
-            <IconFont name='addto' color='#fff' size={50} />
-            <Text className='page-header__add-device'>添加设备</Text>
-          </View>
-        </View>
-        <View className='device'>
-          {deviceList&&deviceList.map((item) => {
-            return (
-              <View className='device__item'>
-                <View className='device__header'>
-                  <view className='device__header-left'>
-                    <IconFont name='morentouxiang' size={100} color='#518cff' />
-                    <View className='device__header-info'>
-                      <View className='device__header-name'>{item.name}</View>
-                      <View className='device__header-id'>{item.id}</View>
-                    </View>
-                  </view>
-                  <View className='device__header-right'>
-                    {item.status === 'on'? (
-                      <View className='device__header-right--on'>
-                        <Text className='device__header-right-status'>设备实时监控中</Text>
-                        <IconFont name='xindiantu' size={48} />
+          <View className='device'>
+            {deviceList&&deviceList.map((item) => {
+              return (
+                <View className='device__item'>
+                  <View className='device__header'>
+                    <view className='device__header-left'>
+                      <IconFont name='morentouxiang' size={120} color='#ffffff' />
+                      <View className='device__header-info'>
+                        <View className='device__header-name'>{item.name}</View>
+                        <View className='device__header-id'>{item.id}</View>
+                        <View className='device__header-age'>{item.age}岁</View>
                       </View>
-                    ): (
-                      <View className='device__header-right--off'>
-                        <Text className='device__header-right-status'>设备离线了</Text>
-                        <IconFont name='xindiantu' size={48} color='#99a0ad' />
+                    </view>
+                    <View className='device__header-right'>
+                      <view className='device__header-right-switch'>
+                        <View className='device__header-right-switch--btn' onClick={this.handleSwitchDevice}>
+                          <Text className='device__header-right-switch-title'>切换</Text>
+                          <IconFont name='qiehuan' size={40} color='#5f94fa' />
+                        </View>
+                      </view>
+                      {item.status === 'on'? (
+                        <View className='device__header-right--on'>
+                          <Text className='device__header-right-status'>设备实时监控中</Text>
+                          <IconFont name='xindiantu' size={48} />
+                        </View>
+                      ): (
+                        <View className='device__header-right--off'>
+                          <Text className='device__header-right-status'>设备离线了</Text>
+                          <IconFont name='xindiantu' size={48} color='#99a0ad' />
+                        </View>
+                      )}
+                      <View className='device__setting' onClick={this.handleSetting.bind(this)}>
+                        <Text className='device__setting--space'>设置</Text>
+                        <IconFont name='shezhitianchong' size={40} color='#fff' />
                       </View>
-                    )}
-                    <View className='device__setting'>
-                      <Text className='device__setting--space'>设置</Text>
-                      <IconFont name='shezhitianchong' size={40} color='#808080' />
                     </View>
                   </View>
                 </View>
-              </View>
-            )
-          })}
+              )
+            })}
+          </View>
         </View>
-
         <View className='calendar'>
           <View className='calendar__header'>
             <View className='calendar__left'>
@@ -189,10 +212,17 @@ class Index extends React.Component<IProps, PageState> {
             </View>
           </View>
           <Calendar
-            selectedDateColor='#54c1fb'
+            selectedDateColor='#54C1FB'
             bindRef={ref => {
               this.calendar = ref
             }}
+            marks={[
+              { value: "2022-05-18", color:"#43CF7C", markSize: "9px"},
+              { value: "2022-05-17", color:"#FDA045", markSize: "9px"},
+              { value: "2022-05-16", color:"#D43030", markSize: "9px"},
+              { value: "2022-05-15", color:"#43CF7C", markSize: "9px"}
+            ]}
+            customStyleGenerator={() => customStyleGenerator}
             onDayClick={(item) => console.log(item)}
             onDayLongPress={(item) => console.log(item)}
             view='week'

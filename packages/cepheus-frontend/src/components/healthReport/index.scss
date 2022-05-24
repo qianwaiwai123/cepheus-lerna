@@ -296,9 +296,6 @@
         &-item {
           @extend .field-item;
 
-          &-title {
-            @extend .field-item-title;
-          }
 
           &-value {
             @extend .flex-row-center;
@@ -372,44 +369,21 @@
       }
 
       &-status {
-        // @extend .flex-row-center;
-
-        // &-label {
-        //   background-color: $color-green;
-        //   border-radius: $border-raduis-label;
-        //   color: #FFFFFF;
-        //   font-size: $font-sm;
-
-        //   padding: $padding-xs $padding-md;
-        //   margin-right: $margin-md;
-
-        //   &--warn {
-        //     background-color: $color-orange;
-        //     border-radius: $border-raduis-label;
-        //     color: #FFFFFF;
-        //     font-size: $font-sm;
-
-        //     padding: $padding-xs $padding-md;
-        //     margin-right: $margin-md;
-        //   }
-        // }
-
-        // &-text {
-        //   color: $color-blue;
-        //   font-size: $font-sm;
-        // }
 
         @extend .flex-column-center;
 
         &-label {
+          display: flex;
+          align-items: center;
+          justify-content: center;
           background-color: $color-green;
           border-radius: $border-raduis-label;
           color: #FFFFFF;
-          font-size: $font-lg;
+          font-size: 72px;
+          width: 266px;
+          height: 127px;
 
-          padding: $padding-xs $padding-lg;
-          margin-right: $margin-md;
-          margin-bottom: $margin-sm;
+          margin-bottom: $margin-lg;
 
           &--warn {
             background-color: $color-orange;

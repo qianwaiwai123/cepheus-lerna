@@ -12,7 +12,8 @@ export default {
       "root": "packageA",
       "pages": [
         "pages/chooseRole/index",
-        "pages/chooseDevice/index"
+        "pages/chooseDevice/index",
+        "pages/liveCharts/index"
       ]
     }
   ],

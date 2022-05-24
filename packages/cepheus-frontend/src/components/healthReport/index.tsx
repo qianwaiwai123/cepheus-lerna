@@ -4,7 +4,6 @@ import { AtCalendar, AtButton } from 'taro-ui'
 import IconFont from "../iconfont";
 import {toggle, errorSelect } from '../../actions/counter'
 
-
 // @ts-ignore
 import mock from '../../mock/userinfo'
 import { connect } from '../../utils/connect'
@@ -148,13 +147,13 @@ class Sleep extends React.Component<IProps, PageState>   {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
+  if (this.props !== nextProps) {
       this.setState({
         info: mock[0][nextProps.counter.index],
         activeIndex: nextProps.counter.current,
       })
     }
-  }
+}
 
   onShareAppMessage(){
 
@@ -245,26 +244,8 @@ class Sleep extends React.Component<IProps, PageState>   {
             <View className='taro-health-sleep__card'>
               {/* 基本信息 */}
               <View className='taro-health-sleep__card-item'>
-                <View className='taro-health-sleep__card-label'>
-                  <Image className='taro-health-sleep__card-label-icon' src='https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/health_info.png'  mode='widthFix' />
-                  <View className='taro-health-sleep__card-label-title'>
-                    <Text>基本信息</Text>
-                  </View>
-                </View>
                 {/* 字段列表 */}
                 <View className='taro-health-sleep__card-content'>
-                  <View className='taro-health-sleep__card-content-item'>
-                    <View className='taro-health-sleep__card-content-item-title'>
-                      <Text>年龄:</Text>
-                    </View>
-                    <View className='taro-health-sleep__card-content-item-value'>{this.state.info.user.age}</View>
-                  </View>
-                  <View className='taro-health-sleep__card-content-item'>
-                    <View className='taro-health-sleep__card-content-item-title'>
-                      <Text>基础病:</Text>
-                    </View>
-                    <View className='taro-health-sleep__card-content-item-value'>{this.state.info.user.disease.length == 0 ? <Text>无</Text> : ''}</View>
-                  </View>
                 </View>
               </View>
               {/* 诊断结果 */}

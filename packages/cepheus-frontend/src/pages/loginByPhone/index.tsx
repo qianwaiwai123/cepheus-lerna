@@ -43,7 +43,7 @@ class Loginbyphone extends React.Component {
   componentDidHide () { }
 
   handleGetPhone(e){
-    if(e.detail.errMsg === 'getPhoneNumber:ok'){
+    if(e.detail.errMsg === "getPhoneNumber:ok"){
       this.props.loginByPhoneRequest(e.detail.code)
     }
   }

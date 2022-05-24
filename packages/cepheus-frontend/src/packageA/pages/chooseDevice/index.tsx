@@ -1,7 +1,8 @@
 import React from 'react';
-import {Button, Image, View} from "@tarojs/components";
+import {Image, View} from "@tarojs/components";
 import Taro from '@tarojs/taro'
 import './index.scss'
+import IconFont from "../../../components/iconfont";
 
 type PageState = {
   roles: {
@@ -51,16 +52,6 @@ export default class ChooseDevice extends React.Component<{}, PageState>{
           name: '设备七',
           selected: false,
           avatar: 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/avatar.png'
-        },
-        {
-          name: '设备八',
-          selected: false,
-          avatar: 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/avatar.png'
-        },
-        {
-          name: '设备九',
-          selected: false,
-          avatar: 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/cepheus-frontend/avatar.png'
         }
       ]
     }
@@ -107,9 +98,12 @@ export default class ChooseDevice extends React.Component<{}, PageState>{
               </View>
             )
           })}
-        </View>
-        <View className='choose-role__footer' onClick={this.handleConfirmRole}>
-          <Button className='choose-role__footer-btn'>确定</Button>
+          <View className='choose-role__main-item'>
+            <View className='choose-role__main-item-add'>
+              <IconFont name='addto' color='#ffffff' size={160} />
+            </View>
+            <View className='choose-role__main-item-name'>添加设备</View>
+          </View>
         </View>
       </View>
     )

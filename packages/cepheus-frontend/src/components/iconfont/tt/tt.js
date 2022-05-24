@@ -1,6 +1,6 @@
 Component({
   properties: {
-    // fenxiang | qiehuan | addto | shuaxin | scan | add | shezhitianchong | xiangshang | xindiantu | morentouxiang | angle-right | angle-left | weixin
+    // xuanzhong | weixuanzhong | fenxiang | qiehuan | addto | shuaxin | scan | add | shezhitianchong | xiangshang | xindiantu | morentouxiang | angle-right | angle-left | weixin
     name: {
       type: String,
     },

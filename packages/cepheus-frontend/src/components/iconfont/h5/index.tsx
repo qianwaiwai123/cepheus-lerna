@@ -2,6 +2,8 @@
 /* eslint-disable */
 
 import React, { SVGAttributes, FunctionComponent } from 'react';
+import IconXuanzhong from './IconXuanzhong';
+import IconWeixuanzhong from './IconWeixuanzhong';
 import IconFenxiang from './IconFenxiang';
 import IconQiehuan from './IconQiehuan';
 import IconAddto from './IconAddto';
@@ -15,6 +17,8 @@ import IconMorentouxiang from './IconMorentouxiang';
 import IconAngleRight from './IconAngleRight';
 import IconAngleLeft from './IconAngleLeft';
 import IconWeixin from './IconWeixin';
+export { default as IconXuanzhong } from './IconXuanzhong';
+export { default as IconWeixuanzhong } from './IconWeixuanzhong';
 export { default as IconFenxiang } from './IconFenxiang';
 export { default as IconQiehuan } from './IconQiehuan';
 export { default as IconAddto } from './IconAddto';
@@ -29,7 +33,7 @@ export { default as IconAngleRight } from './IconAngleRight';
 export { default as IconAngleLeft } from './IconAngleLeft';
 export { default as IconWeixin } from './IconWeixin';
 
-export type IconNames = 'fenxiang' | 'qiehuan' | 'addto' | 'shuaxin' | 'scan' | 'add' | 'shezhitianchong' | 'xiangshang' | 'xindiantu' | 'morentouxiang' | 'angle-right' | 'angle-left' | 'weixin';
+export type IconNames = 'xuanzhong' | 'weixuanzhong' | 'fenxiang' | 'qiehuan' | 'addto' | 'shuaxin' | 'scan' | 'add' | 'shezhitianchong' | 'xiangshang' | 'xindiantu' | 'morentouxiang' | 'angle-right' | 'angle-left' | 'weixin';
 
 interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
   name: IconNames;
@@ -39,6 +43,10 @@ interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
 
 const IconFont: FunctionComponent<Props> = ({ name, ...rest }) => {
   switch (name) {
+    case 'xuanzhong':
+      return <IconXuanzhong {...rest} />;
+    case 'weixuanzhong':
+      return <IconWeixuanzhong {...rest} />;
     case 'fenxiang':
       return <IconFenxiang {...rest} />;
     case 'qiehuan':
