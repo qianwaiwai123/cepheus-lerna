@@ -1,136 +1,198 @@
 //index.js
-import React from 'react';
+// @ts-ignore
+import React, {useEffect} from 'react';
 // import Taro from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import { EChart } from "echarts-taro3-react";
 import './index.scss';
 
-let barChart = null;
+let data = [];
+let data2 = [];
+let now = new Date();
+let oneDay = 24 * 3600 * 1000;
+let initNumber = 30;
+let barChart: any
 
-let cat = ["2016","2017","2018","2019","2020","2021"];
 
-let d = [35,8,25,37,4,20]
-
-let opt = {
-  xAxis: {
-    type: "category",
-    data:  cat,
-  },
-  yAxis: {
-    type: "value",
-  },
-  series: [
-    {
-      data: d,
-      type: "line",
-      showBackground: true,
-      backgroundStyle: {
-        color: "rgba(220, 220, 220, 0.8)",
-      },
-    },
-  ],
+function refBarChart(node){
+  barChart = node
 }
 
-export default class Index extends React.Component<any,any> {
-  constructor(props){
-    super(props)
-    this.state = {
+function randomData(value = 21) {
+  now = new Date(+now + oneDay);
+  value = value + Math.random() * value - 10;
+  return {
+    name: now.toString(),
+    value: [
+      [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
+      Math.round(value)
+    ]
+  };
+}
 
-    }
-  }
+function initChart() {
 
-  componentDidMount(){
+  for (let i = 0; i < initNumber; i++) {
     // @ts-ignore
-    barChart.refresh(opt)
+    data.push(randomData());
+    // @ts-ignore
+    data2.push(randomData(10))
   }
 
-  // getServerData = ()=>{
-  //   //模拟从服务器获取数据时的延时
-  //   setTimeout(() => {
-  //     //模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
-  //     let res = {
-  //       categories: cat,
-  //       series: [
-  //         {
-  //           name: "成交量A",
-  //           data: d
-  //         }
-  //       ],
-  //       animation: false
-  //     };
-  //     this.drawCharts('FMiHmFXecWhnaWAwgHIkgwpnRKuhTuPG', res);
-  //
-  //     //模拟后续数据更新
-  //     setTimeout(() => {
-  //       setInterval(() => {
-  //         cat.shift()
-  //         cat.push(String(Number(cat[cat.length -1]) + 1))
-  //         d.shift()
-  //         d.push(Math.floor(Math.random() * 100))
-  //         this.updateCharts('FMiHmFXecWhnaWAwgHIkgwpnRKuhTuPG', {
-  //           categories: cat,
-  //           series: [
-  //             {
-  //               name: '成交量A',
-  //               data: d
-  //             }
-  //           ],
-  //           animation: false
-  //         })
-  //       },1000)
-  //     }, 500)
-  //
-  //   }, 0);
-  // }
+  let option = {
+    darkMode: true,
+    legend: {
+      show: true,
+      left: '50%',
+      textStyle: {
+        color: '#ffffff'
+      }
 
-  // drawCharts = (id, data)=>{
-  //   const { cWidth, cHeight, pixelRatio } = this.state;
-  //   let ctx = Taro.createCanvasContext(id);
-  //   uChartsInstance[id] = new uCharts({
-  //     type: "line",
-  //     context: ctx,
-  //     width: cWidth,
-  //     height: cHeight,
-  //     categories: data.categories,
-  //     series: data.series,
-  //     pixelRatio: pixelRatio,
-  //     animation: true,
-  //     background: "#FFFFFF",
-  //     color: ["#1890FF","#91CB74","#FAC858","#EE6666","#73C0DE","#3CA272","#FC8452","#9A60B4","#ea7ccc"],
-  //     padding: [15,10,0,15],
-  //     legend: {},
-  //     xAxis: {
-  //       disableGrid: true
-  //     },
-  //     yAxis: {
-  //       gridType: "dash",
-  //       dashLength: 2
-  //     },
-  //     extra: {
-  //       line: {
-  //         type: "straight",
-  //         width: 2
-  //       }
-  //     }
-  //   });
-  // }
+    },
+    tooltip: {
+      trigger: 'axis',
+      formatter: function (params) {
+        params = params[0];
+        var date = new Date(params.name);
+        return (
+          date.getDate() +
+          '/' +
+          (date.getMonth() + 1) +
+          '/' +
+          date.getFullYear() +
+          ' : ' +
+          params.value[1]
+        );
+      },
+      axisPointer: {
+        animation: false
+      }
+    },
+    xAxis: {
+      show:false,
+      name: '时间',
+      type: 'time',
+      splitLine: {
+        show: false
+      }
+    },
+    yAxis: {
+      name: '频次',
+      type: 'value',
+      boundaryGap: ['0%', '0%'],
+      min: (value) => {
+        return value.min
+      },
+      splitLine: {
+        show: true
+      }
+    },
+    series: [
+      {
+        name: '心率',
+        type: 'line',
+        showSymbol: false,
+        smooth: true,
+        data: data,
+        color: '#ffc300',
+        lineStyle: {
+          color:'#ffc300',
+          width: 4
+        }
+      },
+      {
+        name: '心跳',
+        type: 'line',
+        showSymbol: false,
+        smooth: true,
+        data: data2,
+        color: '#e0ebff',
+        lineStyle: {
+          color: '#e0ebff',
+          width: 4
+        }
+      }
+    ]
+  };
 
-  // updateCharts = (id, data) => {
-  //   uChartsInstance[id].updateData({
-  //     categories: data.categories,
-  //     series: data.series
-  //   })
-  // }
+  barChart.refresh(option);
 
 
-  refBarChart = (node) => (barChart = node);
+  setInterval(function () {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    for (let i = 0; i < 1; i++) {
+      data.shift();
+      // @ts-ignore
+      data.push(randomData());
+      data2.shift();
+      // @ts-ignore
+      data2.push(randomData(10))
+    }
+    barChart.refresh({
+      xAxis: {
+        show:false,
+        name: '时间',
+        type: 'time',
+        splitLine: {
+          show: false
+        }
+      },
+      yAxis: {
+        name: '频次',
+        type: 'value',
+        boundaryGap: ['0%', '0%'],
+        min: (value) => {
+          return value.min
+        },
+        splitLine: {
+          show: true
+        }
+      },
+      series: [
+        {
+          name: '心率',
+          type: 'line',
+          showSymbol: false,
+          smooth: true,
+          data: data,
+          color: '#ffc300',
+          lineStyle: {
+            color:'#ffc300',
+            width: 4
+          }
+        },
+        {
+          name: '心跳',
+          type: 'line',
+          showSymbol: false,
+          smooth: true,
+          data: data2,
+          color: '#e0ebff',
+          lineStyle: {
+            color: '#e0ebff',
+            width: 4
+          }
+        }
+      ]
+    });
 
-  render () {
-    return (
-      <View>
-        <EChart ref={this.refBarChart} canvasId='bar-canvas' />
-      </View>
-    )
-  }
+    return barChart
+
+  }, 2000);
+
+
+
 }
 
+export default function LiveCharts() {
+
+  useEffect(() => {
+    initChart()
+  }, [])
+
+  return (
+    <View className='bar-chart'>
+      <EChart ref={refBarChart} canvasId='bar-canvas' />
+    </View>
+  )
+}

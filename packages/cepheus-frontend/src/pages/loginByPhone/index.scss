@@ -20,3 +20,36 @@
   font-weight: bolder;
   letter-spacing: 10px;
 }
+
+.health-login__btn {
+  border-radius: 50px;
+  background: rgba(0,0,0,0.4);
+  width: 500px;
+  height: 120px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.health-login__btn-text {
+  margin-left: 10px;
+  letter-spacing: 6px;
+}
+
+.user-agreement {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333333;
+  font-size: 26px;
+}
+
+.user-agreement-title {
+  color: #FFFFFF;
+}
