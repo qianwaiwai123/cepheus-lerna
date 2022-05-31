@@ -43,6 +43,7 @@
     "@tarojs/react": "3.3.12",
     "@tarojs/runtime": "3.3.12",
     "@tarojs/taro": "3.3.12",
+    "@tarojs/with-weapp": "^3.4.10",
     "cepheus-axios": "^0.0.1",
     "custom-calendar-taro": "^1.0.12",
     "echarts-taro3-react": "^1.0.13",

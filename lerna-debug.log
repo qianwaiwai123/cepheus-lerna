@@ -1,0 +1,12 @@
+0 silly argv {
+0 silly argv   _: [ 'add' ],
+0 silly argv   scope: 'cepheus-frontend',
+0 silly argv   globs: [],
+0 silly argv   lernaVersion: '4.0.0',
+0 silly argv   '$0': 'C:\\Users\\wangz\\AppData\\Roaming\\npm\\node_modules\\lerna\\cli.js',
+0 silly argv   pkg: '@tarojs/with-wepp'
+0 silly argv }
+1 notice cli v4.0.0
+2 verbose rootPath E:\cepheus-lerna
+3 error HttpErrorGeneral: 404 Not Found - GET https://registry.npmmirror.com/@tarojs%2fwith-wepp - [NOT_FOUND] @tarojs/with-wepp not found
+3 error     at E:\cepheus-lerna\node_modules\npm-registry-fetch\check-response.js:95:15

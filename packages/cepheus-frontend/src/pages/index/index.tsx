@@ -132,6 +132,13 @@ class Index extends React.Component<IProps, PageState> {
     })
   }
 
+  handleLiveLine(){
+    Taro.vibrateShort();
+    Taro.navigateTo({
+      url: '/packageA/pages/liveLine/index'
+    })
+  }
+
   render () {
     const {deviceList} = this.props.device;
     const customStyleGenerator = {
@@ -169,16 +176,16 @@ class Index extends React.Component<IProps, PageState> {
                       </View>
                     </view>
                     <View className='device__header-right'>
-                      <view className='device__header-right-switch'>
-                        <View className='device__header-right-switch--btn' onClick={this.handleSwitchDevice}>
-                          <Text className='device__header-right-switch-title'>切换</Text>
-                          <IconFont name='qiehuan' size={40} color='#5f94fa' />
-                        </View>
-                      </view>
+                      {/*<view className='device__header-right-switch'>*/}
+                      {/*  <View className='device__header-right-switch--btn' onClick={this.handleSwitchDevice}>*/}
+                      {/*    <Text className='device__header-right-switch-title'>切换</Text>*/}
+                      {/*    <IconFont name='qiehuan' size={40} color='#5f94fa' />*/}
+                      {/*  </View>*/}
+                      {/*</view>*/}
                       {item.status === 'on'? (
-                        <View className='device__header-right--on'>
-                          <Text className='device__header-right-status'>设备实时监控中</Text>
-                          <IconFont name='xindiantu' size={48} />
+                        <View className='device__header-right--on' onClick={this.handleLiveLine.bind(this)}>
+                          <Text className='device__header-right-status'>实时监控数据</Text>
+                          <IconFont name='cc-arrow-circle-right' size={48} color='#fff' />
                         </View>
                       ): (
                         <View className='device__header-right--off'>

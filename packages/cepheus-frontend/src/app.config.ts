@@ -14,7 +14,7 @@ export default {
       "pages": [
         "pages/chooseRole/index",
         "pages/chooseDevice/index",
-        "pages/liveCharts/index"
+        "pages/liveLine/index"
       ]
     }
   ],

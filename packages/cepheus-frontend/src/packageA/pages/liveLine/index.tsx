@@ -1,22 +1,8 @@
-//index.js
+import React from 'react'
+import { View } from '@tarojs/components'
 // @ts-ignore
-import React, {useEffect} from 'react';
-// import Taro from '@tarojs/taro';
-import { View } from '@tarojs/components';
-import { EChart } from "echarts-taro3-react";
-import './index.scss';
-
-let data = [];
-let data2 = [];
-let now = new Date();
-let oneDay = 24 * 3600 * 1000;
-let initNumber = 30;
-let barChart: any
-
-
-function refBarChart(node){
-  barChart = node
-}
+import * as echarts from '../../components/ec-canvas/echarts'
+import './index.scss'
 
 function randomData(value = 21) {
   now = new Date(+now + oneDay);
@@ -30,16 +16,29 @@ function randomData(value = 21) {
   };
 }
 
-function initChart() {
+let data = [];
+let data2 = [];
+let now = new Date();
+let oneDay = 24 * 3600 * 1000;
+let initNumber = 30
+let a
 
-  for (let i = 0; i < initNumber; i++) {
+function initChart(canvas, width, height, dpr) {
+  const chart = echarts.init(canvas, null, {
+    width: width,
+    height: height,
+    devicePixelRatio: dpr // new
+  });
+  canvas.setChart(chart);
+
+  for (var i = 0; i < initNumber; i++) {
     // @ts-ignore
     data.push(randomData());
     // @ts-ignore
     data2.push(randomData(10))
   }
 
-  let option = {
+  var option = {
     darkMode: true,
     legend: {
       show: true,
@@ -115,12 +114,11 @@ function initChart() {
     ]
   };
 
-  barChart.refresh(option);
+  chart.setOption(option);
 
 
-  setInterval(function () {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    for (let i = 0; i < 1; i++) {
+  a = setInterval(function () {
+    for (var c = 0; c < 1; c++) {
       data.shift();
       // @ts-ignore
       data.push(randomData());
@@ -128,55 +126,18 @@ function initChart() {
       // @ts-ignore
       data2.push(randomData(10))
     }
-    barChart.refresh({
-      xAxis: {
-        show:false,
-        name: '时间',
-        type: 'time',
-        splitLine: {
-          show: false
-        }
-      },
-      yAxis: {
-        name: '频次',
-        type: 'value',
-        boundaryGap: ['0%', '0%'],
-        min: (value) => {
-          return value.min
-        },
-        splitLine: {
-          show: true
-        }
-      },
+    chart.setOption({
       series: [
         {
-          name: '心率',
-          type: 'line',
-          showSymbol: false,
-          smooth: true,
-          data: data,
-          color: '#ffc300',
-          lineStyle: {
-            color:'#ffc300',
-            width: 4
-          }
+          data: data
         },
         {
-          name: '心跳',
-          type: 'line',
-          showSymbol: false,
-          smooth: true,
-          data: data2,
-          color: '#e0ebff',
-          lineStyle: {
-            color: '#e0ebff',
-            width: 4
-          }
+          data: data2
         }
       ]
     });
 
-    return barChart
+    return chart
 
   }, 2000);
 
@@ -184,15 +145,26 @@ function initChart() {
 
 }
 
-export default function LiveCharts() {
+export default class LiveLine extends React.Component<any, any>{
 
-  useEffect(() => {
-    initChart()
-  }, [])
+  state = {
+    ec: {
+      onInit: initChart
+    }
+  }
 
-  return (
-    <View className='bar-chart'>
-      <EChart ref={refBarChart} canvasId='bar-canvas' />
-    </View>
-  )
+  componentWillUnmount() {
+    clearInterval(a)
+    data = []
+    data2 = []
+  }
+
+  render(){
+    return (
+      <View className='echarts'>
+        {/*// @ts-ignore*/}
+        <ec-canvas id='mychart-dom-area' canvas-id='mychart-area' ec={this.state.ec}></ec-canvas>
+      </View>
+    )
+  }
 }

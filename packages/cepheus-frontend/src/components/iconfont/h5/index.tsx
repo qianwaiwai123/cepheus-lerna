@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import React, { SVGAttributes, FunctionComponent } from 'react';
+import IconCcArrowCircleRight from './IconCcArrowCircleRight';
 import IconXuanzhong from './IconXuanzhong';
 import IconWeixuanzhong from './IconWeixuanzhong';
 import IconFenxiang from './IconFenxiang';
@@ -17,6 +18,7 @@ import IconMorentouxiang from './IconMorentouxiang';
 import IconAngleRight from './IconAngleRight';
 import IconAngleLeft from './IconAngleLeft';
 import IconWeixin from './IconWeixin';
+export { default as IconCcArrowCircleRight } from './IconCcArrowCircleRight';
 export { default as IconXuanzhong } from './IconXuanzhong';
 export { default as IconWeixuanzhong } from './IconWeixuanzhong';
 export { default as IconFenxiang } from './IconFenxiang';
@@ -33,7 +35,7 @@ export { default as IconAngleRight } from './IconAngleRight';
 export { default as IconAngleLeft } from './IconAngleLeft';
 export { default as IconWeixin } from './IconWeixin';
 
-export type IconNames = 'xuanzhong' | 'weixuanzhong' | 'fenxiang' | 'qiehuan' | 'addto' | 'shuaxin' | 'scan' | 'add' | 'shezhitianchong' | 'xiangshang' | 'xindiantu' | 'morentouxiang' | 'angle-right' | 'angle-left' | 'weixin';
+export type IconNames = 'cc-arrow-circle-right' | 'xuanzhong' | 'weixuanzhong' | 'fenxiang' | 'qiehuan' | 'addto' | 'shuaxin' | 'scan' | 'add' | 'shezhitianchong' | 'xiangshang' | 'xindiantu' | 'morentouxiang' | 'angle-right' | 'angle-left' | 'weixin';
 
 interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
   name: IconNames;
@@ -43,6 +45,8 @@ interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
 
 const IconFont: FunctionComponent<Props> = ({ name, ...rest }) => {
   switch (name) {
+    case 'cc-arrow-circle-right':
+      return <IconCcArrowCircleRight {...rest} />;
     case 'xuanzhong':
       return <IconXuanzhong {...rest} />;
     case 'weixuanzhong':

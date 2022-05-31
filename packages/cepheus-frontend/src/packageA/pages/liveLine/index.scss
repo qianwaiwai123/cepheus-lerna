@@ -1,0 +1,30 @@
+page {
+  background-color: #302e33;
+}
+
+.echarts {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+ec-canvas {
+  width: 90vw;
+  height: 40vh;
+  color: #fff;
+  margin-top: 20px;
+  background: linear-gradient(129.53deg, rgba(210, 212, 214, 1) 0%, rgba(117, 123, 255, 1) 100%);
+  border-radius: 15px;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  box-sizing: border-box;
+  padding: 20px 0 0 0;
+}

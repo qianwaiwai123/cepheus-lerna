@@ -4,6 +4,7 @@
 import React, { FunctionComponent } from 'react';
 import { ViewProps } from 'react-native';
 import { GProps } from 'react-native-svg';
+import IconCcArrowCircleRight from './IconCcArrowCircleRight';
 import IconXuanzhong from './IconXuanzhong';
 import IconWeixuanzhong from './IconWeixuanzhong';
 import IconFenxiang from './IconFenxiang';
@@ -19,6 +20,7 @@ import IconMorentouxiang from './IconMorentouxiang';
 import IconAngleRight from './IconAngleRight';
 import IconAngleLeft from './IconAngleLeft';
 import IconWeixin from './IconWeixin';
+export { default as IconCcArrowCircleRight } from './IconCcArrowCircleRight';
 export { default as IconXuanzhong } from './IconXuanzhong';
 export { default as IconWeixuanzhong } from './IconWeixuanzhong';
 export { default as IconFenxiang } from './IconFenxiang';
@@ -35,7 +37,7 @@ export { default as IconAngleRight } from './IconAngleRight';
 export { default as IconAngleLeft } from './IconAngleLeft';
 export { default as IconWeixin } from './IconWeixin';
 
-export type IconNames = 'xuanzhong' | 'weixuanzhong' | 'fenxiang' | 'qiehuan' | 'addto' | 'shuaxin' | 'scan' | 'add' | 'shezhitianchong' | 'xiangshang' | 'xindiantu' | 'morentouxiang' | 'angle-right' | 'angle-left' | 'weixin';
+export type IconNames = 'cc-arrow-circle-right' | 'xuanzhong' | 'weixuanzhong' | 'fenxiang' | 'qiehuan' | 'addto' | 'shuaxin' | 'scan' | 'add' | 'shezhitianchong' | 'xiangshang' | 'xindiantu' | 'morentouxiang' | 'angle-right' | 'angle-left' | 'weixin';
 
 interface Props extends GProps, ViewProps {
   name: IconNames;
@@ -45,36 +47,38 @@ interface Props extends GProps, ViewProps {
 
 let IconFont: FunctionComponent<Props> = ({ name, ...rest }) => {
   switch (name) {
+    case 'cc-arrow-circle-right':
+      return <IconCcArrowCircleRight key="1" {...rest} />;
     case 'xuanzhong':
-      return <IconXuanzhong key="1" {...rest} />;
+      return <IconXuanzhong key="2" {...rest} />;
     case 'weixuanzhong':
-      return <IconWeixuanzhong key="2" {...rest} />;
+      return <IconWeixuanzhong key="3" {...rest} />;
     case 'fenxiang':
-      return <IconFenxiang key="3" {...rest} />;
+      return <IconFenxiang key="4" {...rest} />;
     case 'qiehuan':
-      return <IconQiehuan key="4" {...rest} />;
+      return <IconQiehuan key="5" {...rest} />;
     case 'addto':
-      return <IconAddto key="5" {...rest} />;
+      return <IconAddto key="6" {...rest} />;
     case 'shuaxin':
-      return <IconShuaxin key="6" {...rest} />;
+      return <IconShuaxin key="7" {...rest} />;
     case 'scan':
-      return <IconScan key="7" {...rest} />;
+      return <IconScan key="8" {...rest} />;
     case 'add':
-      return <IconAdd key="8" {...rest} />;
+      return <IconAdd key="9" {...rest} />;
     case 'shezhitianchong':
-      return <IconShezhitianchong key="9" {...rest} />;
+      return <IconShezhitianchong key="10" {...rest} />;
     case 'xiangshang':
-      return <IconXiangshang key="10" {...rest} />;
+      return <IconXiangshang key="11" {...rest} />;
     case 'xindiantu':
-      return <IconXindiantu key="11" {...rest} />;
+      return <IconXindiantu key="12" {...rest} />;
     case 'morentouxiang':
-      return <IconMorentouxiang key="12" {...rest} />;
+      return <IconMorentouxiang key="13" {...rest} />;
     case 'angle-right':
-      return <IconAngleRight key="13" {...rest} />;
+      return <IconAngleRight key="14" {...rest} />;
     case 'angle-left':
-      return <IconAngleLeft key="14" {...rest} />;
+      return <IconAngleLeft key="15" {...rest} />;
     case 'weixin':
-      return <IconWeixin key="15" {...rest} />;
+      return <IconWeixin key="16" {...rest} />;
   }
 
   return null;

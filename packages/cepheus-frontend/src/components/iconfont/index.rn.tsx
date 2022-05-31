@@ -5,7 +5,7 @@ import React, { FunctionComponent } from 'react';
 import Taro from '@tarojs/taro';
 import Icon from './rn';
 
-export type IconNames = 'xuanzhong' | 'weixuanzhong' | 'fenxiang' | 'qiehuan' | 'addto' | 'shuaxin' | 'scan' | 'add' | 'shezhitianchong' | 'xiangshang' | 'xindiantu' | 'morentouxiang' | 'angle-right' | 'angle-left' | 'weixin';
+export type IconNames = 'cc-arrow-circle-right' | 'xuanzhong' | 'weixuanzhong' | 'fenxiang' | 'qiehuan' | 'addto' | 'shuaxin' | 'scan' | 'add' | 'shezhitianchong' | 'xiangshang' | 'xindiantu' | 'morentouxiang' | 'angle-right' | 'angle-left' | 'weixin';
 
 interface Props {
   name: IconNames;
