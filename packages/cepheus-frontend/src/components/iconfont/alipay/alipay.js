@@ -1,6 +1,6 @@
 Component({
   props: {
-    // fenxiang | qiehuan | addto | shuaxin | scan | add | shezhitianchong | xiangshang | xindiantu | morentouxiang | angle-right | angle-left | weixin
+    // cc-arrow-circle-right | xuanzhong | weixuanzhong | fenxiang | qiehuan | addto | shuaxin | scan | add | shezhitianchong | xiangshang | xindiantu | morentouxiang | angle-right | angle-left | weixin
     name: null,
     // string | string[]
     color: '',

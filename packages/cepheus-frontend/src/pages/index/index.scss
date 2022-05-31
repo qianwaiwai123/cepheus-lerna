@@ -31,7 +31,7 @@ page {
   padding: 0 40px;
   justify-content: space-between;
   width: 100vw;
-  height: 180px;
+  height: auto;
   background: linear-gradient(180deg, rgba(81, 140, 255, 1)  ,rgba(133, 168, 237, 1) );
   border-radius: 0 0 50px 50px;
   box-shadow: 0 20px 60px 0 rgba(229, 229, 229, 0.26);
@@ -78,7 +78,6 @@ page {
   justify-content: center;
   width: 100%;
   &__item {
-    margin-top: 40px;
     padding: 40px 20px;
   }
   &__header {
@@ -87,7 +86,9 @@ page {
     flex-wrap: nowrap;
   }
   &__header-left {
-    @extend %display-flex
+    @extend %display-flex;
+    flex-wrap: nowrap;
+    width: 50%;
   }
   &__header-info {
     margin-left: 10px;
@@ -95,22 +96,54 @@ page {
   &__header-name {
     font-size: 28px;
     font-weight: bolder;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    color: #FFFFFF;
   }
   &__header-id {
-    color: #99a0ad
+    color: #FFFFFF;
+  }
+  &__header-age {
+    color: #FFFFFF;
+    margin-top: 20px;
   }
   &__header-right {
     @extend %display-flex;
     justify-content: flex-end;
     flex-wrap: wrap;
+    &-switch {
+      @extend %display-flex;
+      justify-content: flex-end;
+      width: 100%;
+      margin-bottom: 20px;
+      &-title {
+        padding-right: 10px;
+      }
+      &--btn {
+        @extend %display-flex;
+        justify-content: center;
+        width: 130px;
+        height: 48px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        border-radius: 30px;
+        background-color: #FFFFFF;
+        color: rgba(95,148,250,1);
+        font-size: 28px;
+      }
+    }
     &--on {
       @extend %display-flex;
-      color: #2980e3;
+      color: #FFFFFF;
+      background-color: rgba(65, 209, 123, 1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 30px;
+      justify-content: center;
+      height: 70px;
+      padding: 0 20px;
+      box-sizing: border-box;
     }
     &--off {
       @extend %display-flex;
-      color: #99a0ad;
+      color: #FFFFFF;
     }
   }
   &__header-right-status {
@@ -124,6 +157,7 @@ page {
     color: #808080;
     &--space {
       padding-right: 10px;
+      color: #FFFFFF;
     }
   }
 }

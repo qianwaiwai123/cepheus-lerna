@@ -3,6 +3,7 @@ import {useGlobalIconFont} from "./components/iconfont/helper";
 export default {
   pages: [
     'pages/index/index',
+    'pages/welcome/index',
     'pages/loginByPhone/index',
     'pages/sleep/index',
     'pages/smartConfig/index'
@@ -12,7 +13,8 @@ export default {
       "root": "packageA",
       "pages": [
         "pages/chooseRole/index",
-        "pages/chooseDevice/index"
+        "pages/chooseDevice/index",
+        "pages/liveLine/index"
       ]
     }
   ],

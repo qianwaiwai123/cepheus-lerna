@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Image, View, Text} from "@tarojs/components";
+import { Button, Image, View, Text } from "@tarojs/components";
 import './index.scss'
 import IconFont from "../../../components/iconfont";
 

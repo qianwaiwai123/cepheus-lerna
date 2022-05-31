@@ -1,4 +1,4 @@
-let userinfo = [{
+const userinfo = [{
   user: {
     realname: '周明阳',
     nickname: '父亲',
