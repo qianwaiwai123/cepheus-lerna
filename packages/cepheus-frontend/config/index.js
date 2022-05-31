@@ -20,6 +20,25 @@ const config = {
   },
   framework: 'react',
   mini: {
+    webpackChain(chain){
+      const cfg = chain.optimization.get('splitChunks')
+      chain.optimization
+        .splitChunks({
+          ...cfg,
+          cacheGroups: {
+            ...cfg.cacheGroups,
+            subutils: {
+              name: 'packageA/ec-canvas',
+              minChunks: 2,
+              test: module => /packageA[\\/]components[\\/]ec-canvas[\\/]/.test(module.resource),
+              priority: 200
+            }
+          }
+        })
+    },
+    addChunkPages(pages) {
+      pages.set("packageA/pages/liveLine/index", ['packageA/ec-canvas']);
+    },
     postcss: {
       pxtransform: {
         enable: true,
