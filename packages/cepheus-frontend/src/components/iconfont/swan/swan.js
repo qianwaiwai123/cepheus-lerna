@@ -1,6 +1,6 @@
 Component({
   properties: {
-    // cc-arrow-circle-right | xuanzhong | weixuanzhong | fenxiang | qiehuan | addto | shuaxin | scan | add | shezhitianchong | xiangshang | xindiantu | morentouxiang | angle-right | angle-left | weixin
+    // bangzhu | laba_ | cc-arrow-circle-right | xuanzhong | weixuanzhong | fenxiang | qiehuan | addto | shuaxin | scan | add | shezhitianchong | xiangshang | xindiantu | morentouxiang | angle-right | angle-left | weixin
     name: {
       type: String,
     },

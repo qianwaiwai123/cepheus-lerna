@@ -6,7 +6,8 @@ export default {
     'pages/welcome/index',
     'pages/loginByPhone/index',
     'pages/sleep/index',
-    'pages/smartConfig/index'
+    'pages/smartConfig/index',
+    'pages/deviceUnconnected/index'
   ],
   "subpackages": [
     {

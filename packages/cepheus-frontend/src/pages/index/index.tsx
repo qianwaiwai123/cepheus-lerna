@@ -195,7 +195,7 @@ class Index extends React.Component<IProps, PageState> {
                       )}
                       <View className='device__setting' onClick={this.handleSetting.bind(this)}>
                         <Text className='device__setting--space'>设置</Text>
-                        <IconFont name='shezhitianchong' size={40} color='#fff' />
+                        <IconFont name='shezhitianchong' size={40} color='#fff'  />
                       </View>
                     </View>
                   </View>
