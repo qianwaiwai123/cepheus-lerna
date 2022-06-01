@@ -1,0 +1,33 @@
+.selectorWrapper {
+  width: 400px;
+  max-height: 800px;
+  display: flex;
+  background-color: white;
+  border-radius: 8px;
+  justify-content: space-between;
+}
+
+.places {
+  width: 85%;
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.places View {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.alphabet {
+  width: 15%;
+  font-size: 20px;
+  align-self: center;
+  color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

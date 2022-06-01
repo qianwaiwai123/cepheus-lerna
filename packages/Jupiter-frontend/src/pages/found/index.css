@@ -1,0 +1,89 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.map {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.navigationBar {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.selector {
+  position: relative;
+  left: 3rem;
+  z-index: 500;
+}
+
+.events {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  /* white-space: nowrap; */
+  /* margin-bottom: 0.5rem; */
+  z-index: 100;
+}
+
+.searchIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 12rem;
+  left: 1rem;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 5px 5px 10px 5px #f2f2f2;
+}
+
+.searchIcon Image {
+  width: 60px;
+  height: 60px;
+}
+
+.menuIcon {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  bottom: 12rem;
+  right: 1rem;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 5px 5px 10px 5px #f2f2f2;
+}
+
+.menuIcon Image {
+  width: 50px;
+  height: 50px;
+}
+
+.addIcon {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  bottom: 16.5rem;
+  right: 1rem;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 5px 5px 10px 5px #f2f2f2;
+}
+
+.addIcon Image {
+  width: 60px;
+  height: 60px;
+}

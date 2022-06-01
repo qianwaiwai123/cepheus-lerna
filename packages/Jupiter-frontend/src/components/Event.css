@@ -1,0 +1,80 @@
+
+.eventWrapper {
+  display: block;
+  /* margin: auto; */
+  /* margin-left: 1rem; */
+  border-radius: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 450px;
+}
+
+.container Image {
+  position: absolute;
+  left: 0;
+  width: 90%;
+  height: 100%;
+  z-index: 0;
+  border-radius: 10px;
+}
+
+.shadow {
+  position: absolute;
+  left: 0;
+  width: 90%;
+  height: 100%;
+  z-index: 0;
+  border-radius: 10px;
+  background-image: linear-gradient(transparent,#524949);
+  opacity: 0.5;
+}
+
+.distance {
+  background-color: #f3f3f3;
+  height: 70%;
+  opacity: 0.5;
+  padding: 5px 20px;
+  border-radius: 20px;
+  text-align: center;
+  align-self: flex-end;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+
+.tag {
+  background-color: #f3f3f3;
+  opacity: 0.5;
+  padding: 5px 20px;
+  border-radius: 20px;
+  text-align: center;
+  align-self: flex-end;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+.info {
+  display: flex;
+  background-color: pink;
+  z-index: 20;
+  height: 30%;
+  flex-direction: column;
+  margin-left: 0.5rem;
+  align-items: left;
+}
+
+.tags {
+  display: flex;
+}
+
+.time {
+  display: flex;
+  margin-left: 1.3rem;
+}
