@@ -1,6 +1,6 @@
 const config = {
-  projectName: 'cepheus-frontend',
-  date: '2022-4-28',
+  projectName: 'Jupiter',
+  date: '2022-5-23',
   designWidth: 750,
   deviceRatio: {
     640: 2.34 / 2,
@@ -20,25 +20,6 @@ const config = {
   },
   framework: 'react',
   mini: {
-    webpackChain(chain){
-      const cfg = chain.optimization.get('splitChunks')
-      chain.optimization
-        .splitChunks({
-          ...cfg,
-          cacheGroups: {
-            ...cfg.cacheGroups,
-            subutils: {
-              name: 'packageA/ec-canvas',
-              minChunks: 2,
-              test: module => /packageA[\\/]components[\\/]ec-canvas[\\/]/.test(module.resource),
-              priority: 200
-            }
-          }
-        })
-    },
-    addChunkPages(pages) {
-      pages.set("packageA/pages/liveLine/index", ['packageA/ec-canvas']);
-    },
     postcss: {
       pxtransform: {
         enable: true,
@@ -63,7 +44,6 @@ const config = {
   },
   h5: {
     publicPath: '/',
-    esnextModules: ['taro-ui'],
     staticDirectory: 'static',
     postcss: {
       autoprefixer: {

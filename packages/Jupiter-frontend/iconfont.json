@@ -1,0 +1,9 @@
+{
+    "symbol_url": "//at.alicdn.com/t/font_3438004_ev067re7t6l.js",
+    "save_dir": "./iconfont",
+    "use_rpx": false,
+    "use_typescript": true,
+    "trim_icon_prefix": "icon",
+    "default_icon_size": 18,
+    "platforms": ["weapp"]
+}
