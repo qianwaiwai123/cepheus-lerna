@@ -1,0 +1,23 @@
+.saveDraftWrapper {
+  position: fixed;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.23);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.saveDraftContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  background-color: white;
+  border-radius: 25px;
+  width: 500px;
+  height: 500px;
+}
