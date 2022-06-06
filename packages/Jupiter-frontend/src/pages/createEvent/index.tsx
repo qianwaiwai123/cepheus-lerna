@@ -1,8 +1,12 @@
 import React from 'react';
-import { View, Text, Input, Picker, Radio, Textarea, Button, RadioGroup } from '@tarojs/components';
+import { View, Text, Input, Picker, Radio, Textarea, Button, RadioGroup, Image } from '@tarojs/components';
 import './index.css';
 import { FontAwesome } from 'taro-icons';
 import Taro from '@tarojs/taro';
+
+// Own components
+import SaveDraft from '../../components/SaveDraft';
+import SubmitEvent from '../../components/SubmitEvent';
 
 const greyText = {
   color: '#A6A6A6',
@@ -25,6 +29,11 @@ const CreateEvent = () => {
   const [isAddTagOpen, setIsAddTagOpen] = React.useState(false);
   const [tags, setTags] = React.useState([]);
   const [tag, setTag] = React.useState('');
+  const [overviewImages, setOverviewImages] = React.useState([]);
+  const [detailImages, setDetailImages] = React.useState([]);
+  const [description, setDescription] = React.useState('');
+  const [isSaveDraft, setIsSaveDraft] = React.useState(false);
+  const [isSubmitEvent, setIsSubmitEvent] = React.useState(false);
 
   const getCurrentDate = () => {
     const today = new Date();
@@ -39,14 +48,40 @@ const CreateEvent = () => {
     getCurrentDate();
   }, [])
 
-  const uploadImageHandler = () => {
+  const uploadOverviewImageHandler = () => {
     Taro.chooseImage({
       sourceType: ['album', 'camera']
     })
-      .then(res => console.log(res))
+      .then(res => {
+        // console.log(res);
+        res.tempFilePaths.map(image => {
+          setOverviewImages([...overviewImages, image]);
+        })
+        
+        // Taro.previewImage({
+        //   urls: res.tempFilePaths
+        // })
+      })
+  }
+
+  const uploadDetailImageHandler = () => {
+    Taro.chooseImage({
+      sourceType: ['album', 'camera']
+    })
+      .then(res => {
+        // console.log(res);
+        res.tempFilePaths.map(image => {
+          setDetailImages([...detailImages, image]);
+        })
+        
+        // Taro.previewImage({
+        //   urls: res.tempFilePaths
+        // })
+      })
   }
 
   const backHandler = () => {
+    Taro.vibrateShort();
     Taro.navigateBack();
   }
 
@@ -54,6 +89,22 @@ const CreateEvent = () => {
     setTags([...tags, tag]);
     setIsAddTagOpen(false);
   }
+
+  const clickAddTagHandler = () => {
+    Taro.vibrateShort();
+    setIsAddTagOpen(true);
+  }
+
+  const saveDraftHandler = () => {
+    Taro.vibrateShort();
+    setIsSaveDraft(true);
+  }
+
+  const submitEventHandler = () => {
+    Taro.vibrateShort();
+    setIsSubmitEvent(true);
+  }
+
   
 
   return (
@@ -107,29 +158,42 @@ const CreateEvent = () => {
         <View className='item'>
           <Text>上传照片</Text>
         </View>
-        <View className='uploadImage' onClick={uploadImageHandler}>
-          <FontAwesome family='solid' name='plus' color='#c4c4c4' size={20} />
-          <Text style={greyText}>点击上传图片</Text>
+        <View className='images'>
+          {overviewImages.length > 0 && overviewImages.map(image => {
+            console.log('render' + image);
+            return (<Image className='image' src={image} />)
+          })}
+          <View className='uploadImage' onClick={uploadOverviewImageHandler}>
+            <FontAwesome family='solid' name='plus' color='#c4c4c4' size={20} />
+            <Text style={greyText}>点击上传图片</Text>
+          </View>
         </View>
         <View className='tagsContainer'>
           {tags.length > 0 && (tags.map(item => {
             return (<View className='addTag'>{item}</View>)
           }))}
-          <Text style={blueText} onClick={() => setIsAddTagOpen(true)}>添加活动标签</Text>
+          <View style={blueText} onClick={clickAddTagHandler}>添加活动标签</View>
         </View>
       </View>
       <View className='formContainer'>
         <View className='item'>
             <Text>填写详情<Text style={greyText}> (活动发布后自动生成群聊)</Text></Text>
         </View>
-        <View className='uploadImage' onClick={uploadImageHandler}>
-          <FontAwesome family='solid' name='plus' color='#c4c4c4' size={20} />
-          <Text style={greyText}>点击上传图片</Text>
+        <View className='images'>
+          {detailImages.length > 0 && detailImages.map(item => (
+            <Image className='image' src={item} />
+          ))}
+          <View className='uploadImage' onClick={uploadDetailImageHandler}>
+            <FontAwesome family='solid' name='plus' color='#c4c4c4' size={20} />
+            <Text style={greyText}>点击上传图片</Text>
+          </View>
         </View>
         <View className='item'>
           <Textarea
             placeholder='对活动进行一些描述吧'
-            autoHeight={true}/>
+            autoHeight={true}
+            value={description}
+            onInput={(e) =>setDescription(e.detail.value)} />
         </View>
       </View>
       <View className='formContainer'>
@@ -149,7 +213,7 @@ const CreateEvent = () => {
           />
         </View>
       </View>
-      <Text className='saveDraft'>保存草稿</Text>
+      <Text className='saveDraft' onClick={saveDraftHandler} >保存草稿</Text>
       <View className='buttons'>
         <Button
           className='exitButton'
@@ -157,7 +221,7 @@ const CreateEvent = () => {
         >
           退出
         </Button>
-        <Button className='submitButton'>提交</Button>
+        <Button className='submitButton' onClick={submitEventHandler}>提交</Button>
       </View>
       {isAddTagOpen && (
         <View className='addTagContainer'>
@@ -185,7 +249,8 @@ const CreateEvent = () => {
           </View>
         </View>
       )}
-      
+      {isSaveDraft && <SaveDraft />}
+      {isSubmitEvent && <SubmitEvent />}
     </View>
   )
 }
