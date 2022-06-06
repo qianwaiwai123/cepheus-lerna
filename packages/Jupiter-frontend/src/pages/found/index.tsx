@@ -142,6 +142,13 @@ const Found = () => {
     Taro.vibrateShort();
   }
 
+  const addEventHandler = () => {
+    Taro.navigateTo({
+      url: '/pages/createEvent/index'
+    });
+    Taro.vibrateShort();
+  }
+
   return (top !== 0) && (
     <View className='wrapper'>
       <Map
@@ -188,7 +195,7 @@ const Found = () => {
       </Swiper>
       <View className='searchIcon'><Image src={search}/> </View>
       <View className='menuIcon'><FontAwesome family='solid' name='bars' size={30} /></View>
-      <View className='addIcon'><FontAwesome family='solid' name='plus' size={30} /></View>
+      <View className='addIcon' onClick={addEventHandler}><FontAwesome family='solid' name='plus' size={30} /></View>
       {/* <View className='addIcon'><IconFont name='add' color='black' /></View>  */}
     </View>
   )
