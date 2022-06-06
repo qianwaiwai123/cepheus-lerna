@@ -13,7 +13,7 @@
 .navigationBar {
   display: flex;
   align-items: flex-end;
-  gap: 0.5rem;
+  gap: 0.5rem
 }
 
 .selector {

@@ -16,7 +16,7 @@ export default class ScanQR extends React.Component<any, any> {
     })
     Taro.vibrateShort()
     // Taro.showToast({
-    //   title:  res.mpEvent.detail.reault,
+    //   title:  res.mpEvent.detail.result,
     //   icon: 'none'
     // })
   }
