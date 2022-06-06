@@ -176,12 +176,6 @@ class Index extends React.Component<IProps, PageState> {
                       </View>
                     </view>
                     <View className='device__header-right'>
-                      {/*<view className='device__header-right-switch'>*/}
-                      {/*  <View className='device__header-right-switch--btn' onClick={this.handleSwitchDevice}>*/}
-                      {/*    <Text className='device__header-right-switch-title'>切换</Text>*/}
-                      {/*    <IconFont name='qiehuan' size={40} color='#5f94fa' />*/}
-                      {/*  </View>*/}
-                      {/*</view>*/}
                       {item.status === 'on'? (
                         <View className='device__header-right--on' onClick={this.handleLiveLine.bind(this)}>
                           <Text className='device__header-right-status'>实时监控数据</Text>
