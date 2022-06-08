@@ -3,6 +3,7 @@ import { View, Text, Input, Picker, Radio, Textarea, Button, RadioGroup, Image }
 import './index.css';
 import { FontAwesome } from 'taro-icons';
 import Taro from '@tarojs/taro';
+import fetch from 'taro-fetch';
 
 // Own components
 import SaveDraft from '../../components/SaveDraft';
@@ -21,20 +22,40 @@ const blueText = {
 
 const tempcategories = ['露营', '运动', '交友', '集市']
 
+const tempToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjZXBoZXVzLmF1dGgiLCJzdWIiOiIrODYxODY2Nzg4MTk1MCIsImV4cCI6MTY1NDc0NjYyMSwiaWF0IjoxNjU0NjYwMjIxLCJqdGkiOiJmMzU4OGE3ZC0yODI2LTQ4ZGItYTFlOC1iNjk3MDJhYzM2MjciLCJpc3N1ZXJfaWQiOiI3MzVhNTVhZi1iYWY4LTRhNjgtYTM3Ny1jZTY3NzdjNTE5NGYiLCJ0eXBlIjowLCJzZXNzaW9uX3Rva2VuIjoidUFEdXE3Qmt6cXQ0YW9xMEV5QmNIUURneVZmamxOMVQifQ.0w1gikCkU7dYZHhVr9UgcWZYTwTlbMKnk7KSCqdiTUo';
+const SERVER_PORT_NUMBER = 'http://localhost:3000'
+
 const CreateEvent = () => {
-  const [title, setTitle] = React.useState('');
-  const [date, setDate] = React.useState('');
-  const [categories, setCategries] = React.useState(tempcategories);
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(-1);
+  // Raw terms data from backend
+  const [existCategories, setExistCategories] = React.useState([]);
+  const [existTags, setExistTags] = React.useState([]);
+
+  const [categories, setCategories] = React.useState([]);
   const [isAddTagOpen, setIsAddTagOpen] = React.useState(false);
+  const [isSaveDraft, setIsSaveDraft] = React.useState(false);
+  const [isSubmitEvent, setIsSubmitEvent] = React.useState(false);
+  const [fid, setFid] = React.useState('');
+
+  const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(-1);
   const [tags, setTags] = React.useState([]);
   const [tag, setTag] = React.useState('');
   const [overviewImages, setOverviewImages] = React.useState([]);
   const [detailImages, setDetailImages] = React.useState([]);
-  const [description, setDescription] = React.useState('');
-  const [isSaveDraft, setIsSaveDraft] = React.useState(false);
-  const [isSubmitEvent, setIsSubmitEvent] = React.useState(false);
+  
 
+  // create event dto
+  const [title, setTitle] = React.useState('');
+  const [description, setDescription] = React.useState('');
+  const [address, setAddress] = React.useState('');
+  const [categoryUuid, setCategoryUuid] = React.useState('');
+  const [date, setDate] = React.useState('');
+  const [tagUuids, setTagUuids] = React.useState([]);
+  const [fids, setFids] = React.useState([]);
+  const [longitude, setLongitude] = React.useState('');
+  const [latitude, setLatitude] = React.useState('');
+
+
+  // when page first renders, get today's date
   const getCurrentDate = () => {
     const today = new Date();
     const dd = today.getDate();
@@ -44,10 +65,53 @@ const CreateEvent = () => {
     setDate(currentDate);
   }
 
+  // get term information from backend
+  const getTerm = () => {
+    const init = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    fetch(`${SERVER_PORT_NUMBER}/jupiter/term`, init)
+      .then(res => {
+        res.text()
+          .then(data => {
+            console.log(data);
+            const terms = JSON.parse(data);
+            let tempCategories = [];
+            let tempExistCategories = [];
+            let tempExistTags = [];
+            terms.map(item => {
+              if (item.taxonomy === 'CATEGORY') {
+                tempCategories.push(item.name);
+                tempExistCategories.push(item);
+                // setExistCategories([...existCategories, item]);
+                // setCategories([...categories, item.name]);
+              } else if (item.taxonomy === 'TAG') {
+                tempExistTags.push(item);
+                // setExistTags([...existTags, item]);
+              }
+            })
+            setExistCategories(tempExistCategories);
+            setCategories(tempCategories);
+            setExistTags(tempExistTags);
+          })
+      })
+  }
+
   React.useEffect(() => {
     getCurrentDate();
+    getTerm();
   }, [])
 
+  React.useEffect(() => {
+    const name = categories[selectedCategoryIndex];
+    const correspondingCategory = existCategories.filter(category => category.name === name);
+    correspondingCategory.length > 0 && (setCategoryUuid(correspondingCategory[0].uuid))
+  }, [selectedCategoryIndex])
+
+  // upload event's overview images
   const uploadOverviewImageHandler = () => {
     Taro.chooseImage({
       sourceType: ['album', 'camera']
@@ -64,6 +128,7 @@ const CreateEvent = () => {
       })
   }
 
+  // upload event's detailed images
   const uploadDetailImageHandler = () => {
     Taro.chooseImage({
       sourceType: ['album', 'camera']
@@ -80,29 +145,136 @@ const CreateEvent = () => {
       })
   }
 
+  // 
   const backHandler = () => {
     Taro.vibrateShort();
     Taro.navigateBack();
   }
 
+  const createTag = (name: string, description: string, taxonomy: number) => {
+    const requestBody = {
+      name: name,
+      description: description,
+      taxonomy: taxonomy
+    }
+    const init = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': tempToken
+      },
+      body: JSON.stringify(requestBody)
+    }
+
+    fetch(`${SERVER_PORT_NUMBER}/jupiter/term`, init)
+      .then(res => {
+        res.text()
+          .then(data => {
+            setTagUuids([...tagUuids, data]);
+          })
+      })
+  }
+
+  // after clicking the telegram icon, current tag in the text input bar will add to tags list
   const addTagHandler = () => {
+    const temp = existTags.filter(item => item.name === tag);
+    if (temp.length === 0) {
+      createTag(tag, '' ,0);
+    } else {
+      setTagUuids([...tagUuids, temp[0].uuid]);
+    }
     setTags([...tags, tag]);
     setIsAddTagOpen(false);
   }
 
+  // the add tag popup will appear in the bottom of the page
   const clickAddTagHandler = () => {
     Taro.vibrateShort();
     setIsAddTagOpen(true);
   }
 
+  // save draft modal
   const saveDraftHandler = () => {
     Taro.vibrateShort();
     setIsSaveDraft(true);
   }
 
+  const uploadImage = () => {
+    let temp = [];
+    overviewImages.map(image => {
+      Taro.uploadFile({
+        url: 'https://cepheus-bff.beehomeplus.cn/media/upload',
+        filePath: image,
+        name: 'file',
+        header: {
+          'Authorization': tempToken
+        }
+        // success(res) {
+        //   const fid: string =(JSON.parse(res.data).file.fid);
+        //   temp.push(fid);
+        //   console.log(temp);
+        //   setFids(temp);
+        // }
+      })
+        .then(res => {
+          // console.log(JSON.parse(res.data).file.fid);
+          const newFid =(JSON.parse(res.data).file.fid);
+          setFid(newFid);
+        })
+    })
+  }
+
+  React.useEffect(() => {
+    setFids([...fids, fid]);
+  }, [fid])
+
+  const createEvent = () => {
+    const requestBody = {
+      title: title,
+      description: description,
+      address: address,
+      category: categoryUuid,
+      start_time: new Date(date),
+      tags_list: tagUuids,
+      coordinate: {
+        lat: latitude,
+        lon: longitude
+      },
+      image_fids_list: fids
+    }
+    console.log(requestBody);
+    const init = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': tempToken
+      },
+      body: JSON.stringify(requestBody)
+    }
+    fetch(`${SERVER_PORT_NUMBER}/jupiter/event`, init)
+      .then(res => {
+        res.text()
+        .then(data => console.log(data))
+      })
+  }
+  // submit event modal
   const submitEventHandler = () => {
+    uploadImage();
+    createEvent();
     Taro.vibrateShort();
     setIsSubmitEvent(true);
+  }
+
+  // select event location
+  const chooseLocationHandler = () => {
+    Taro.vibrateShort();
+    Taro.chooseLocation()
+      .then(res => {
+        // console.log(res);
+        setAddress(res.address);
+        setLongitude(res.longitude);
+        setLatitude(res.latitude);
+      })
   }
 
   
@@ -133,8 +305,11 @@ const CreateEvent = () => {
             </View>
           </View>
         </Picker>
-        <View className='item'>
-          <Text>地点</Text>
+        <View className='item' onClick={chooseLocationHandler}>
+          <Text style={{width: '100px'}}>地点</Text>
+          <View className='selections'>
+            <Text>{address} </Text>
+          </View>
           <FontAwesome family='solid' name='angle-right' color='#c4c4c4' size={20} />
         </View>
         <RadioGroup className='option'>
@@ -160,8 +335,8 @@ const CreateEvent = () => {
         </View>
         <View className='images'>
           {overviewImages.length > 0 && overviewImages.map(image => {
-            console.log('render' + image);
-            return (<Image className='image' src={image} />)
+            // console.log('render' + image);
+            return (<Image className='image' src={image} onClick={() => Taro.previewImage({urls: overviewImages})}/>)
           })}
           <View className='uploadImage' onClick={uploadOverviewImageHandler}>
             <FontAwesome family='solid' name='plus' color='#c4c4c4' size={20} />
@@ -181,7 +356,7 @@ const CreateEvent = () => {
         </View>
         <View className='images'>
           {detailImages.length > 0 && detailImages.map(item => (
-            <Image className='image' src={item} />
+            <Image className='image' src={item} onClick={() => Taro.previewImage({urls: detailImages})}/>
           ))}
           <View className='uploadImage' onClick={uploadDetailImageHandler}>
             <FontAwesome family='solid' name='plus' color='#c4c4c4' size={20} />
