@@ -65,6 +65,8 @@ const Found = () => {
   const [events, setEvents] = React.useState(Events);
   const [markers, setMarkers] = React.useState([]);
   const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [currentLongitude, setCurrentLongitude] = React.useState(0);
+  const [currentLatitude, setCurrentLatitude] = React.useState(0);
 
   // !!!!!!!! DO NOT REMOVE !!!!!!!!!
   // REAL DATA - CALLING API
@@ -117,7 +119,17 @@ const Found = () => {
 
   }
 
+  const getCurrentLocation = () => {
+    Taro.getLocation()
+      .then(res => {
+        // console.log(res);
+        setCurrentLatitude(res.latitude);
+        setCurrentLongitude(res.longitude);
+      })
+  }
+
   React.useEffect(() => {
+    getCurrentLocation();
     getAllEvents();
     createAllMarkers();
     setIsSelectorOpen(false);
@@ -153,8 +165,8 @@ const Found = () => {
     <View className='wrapper'>
       <Map
         className='map'
-        longitude={121.53778}
-        latitude={29.81762}
+        longitude={currentLongitude}
+        latitude={currentLatitude}
         markers={markers}
         showLocation={true}
         style={{top: `${top+height}px`, position: 'absolute'}}
