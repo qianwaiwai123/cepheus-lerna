@@ -61,12 +61,15 @@
     margin-top: 60px;
     border-radius: 20px;
     &--on {
-      background-color: #518cff;
+      background-color: rgba(48, 209, 112,1);
       color: #ffffff;
+      letter-spacing: 5px;
     }
     &--off {
-      background-color: #f8faff;
-      color: #333333;
+      @extend %display-flex;
+      width: 100%;
+      justify-content: center;
+      color: rgba(255, 141, 26, 1);
     }
   }
 }

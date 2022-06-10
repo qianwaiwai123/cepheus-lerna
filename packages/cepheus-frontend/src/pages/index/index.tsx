@@ -69,7 +69,6 @@ const mapDispatchToProps = (dispatch) => ({
 class Index extends React.Component<IProps, PageState> {
 
 
-
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
   }
@@ -175,16 +174,16 @@ class Index extends React.Component<IProps, PageState> {
                         <View className='device__header-age'>{item.age}岁</View>
                       </View>
                     </view>
-                    <View className='device__header-right'>
+                    <View className='device__header-right' onClick={this.handleLiveLine.bind(this)}>
                       {item.status === 'on'? (
-                        <View className='device__header-right--on' onClick={this.handleLiveLine.bind(this)}>
+                        <View className='device__header-right--on' >
                           <Text className='device__header-right-status'>实时监控数据</Text>
                           <IconFont name='cc-arrow-circle-right' size={48} color='#fff' />
                         </View>
                       ): (
                         <View className='device__header-right--off'>
                           <Text className='device__header-right-status'>设备离线了</Text>
-                          <IconFont name='xindiantu' size={48} color='#99a0ad' />
+                          <IconFont name='cc-arrow-circle-right' size={48} color='#fff' />
                         </View>
                       )}
                       <View className='device__setting' onClick={this.handleSetting.bind(this)}>
