@@ -22,7 +22,7 @@ const blueText = {
 
 const tempcategories = ['露营', '运动', '交友', '集市']
 
-const tempToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjZXBoZXVzLmF1dGgiLCJzdWIiOiIrODYxODY2Nzg4MTk1MCIsImV4cCI6MTY1NDc0NjYyMSwiaWF0IjoxNjU0NjYwMjIxLCJqdGkiOiJmMzU4OGE3ZC0yODI2LTQ4ZGItYTFlOC1iNjk3MDJhYzM2MjciLCJpc3N1ZXJfaWQiOiI3MzVhNTVhZi1iYWY4LTRhNjgtYTM3Ny1jZTY3NzdjNTE5NGYiLCJ0eXBlIjowLCJzZXNzaW9uX3Rva2VuIjoidUFEdXE3Qmt6cXQ0YW9xMEV5QmNIUURneVZmamxOMVQifQ.0w1gikCkU7dYZHhVr9UgcWZYTwTlbMKnk7KSCqdiTUo';
+const tempToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjZXBoZXVzLmF1dGgiLCJzdWIiOiIrODYxODY2Nzg4MTk1MCIsImV4cCI6MTY1NDg0MTY3NSwiaWF0IjoxNjU0NzU1Mjc1LCJqdGkiOiI3MDllOTk0MC0yN2NjLTQ3NmYtYjc1MC02Nzg5NWRiMzBhMjQiLCJpc3N1ZXJfaWQiOiI3MzVhNTVhZi1iYWY4LTRhNjgtYTM3Ny1jZTY3NzdjNTE5NGYiLCJ0eXBlIjowLCJzZXNzaW9uX3Rva2VuIjoiOVdQbUxmMnJwZEJnUng4bmw0ZHY1WHk4TGlBQlVZUjcifQ.0l9FiAvEpQhOAFzdQY3Aalh1vlEO5NT8WpexVwZCpRc';
 const SERVER_PORT_NUMBER = 'http://localhost:3000'
 
 const CreateEvent = () => {
@@ -77,7 +77,7 @@ const CreateEvent = () => {
       .then(res => {
         res.text()
           .then(data => {
-            console.log(data);
+            // console.log('terms: ' + data);
             const terms = JSON.parse(data);
             let tempCategories = [];
             let tempExistCategories = [];

@@ -1,0 +1,14 @@
+.eventDetailWrapper {
+  background: linear-gradient(160deg, #AC33C1 40%, #5199E9 80% 100%);
+  width: 100vw;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.backArrow {
+  position: fixed;
+  top: 5rem;
+  left: 1rem;
+}
