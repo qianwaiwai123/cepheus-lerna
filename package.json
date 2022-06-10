@@ -14,5 +14,8 @@
     "commitizen": "^4.2.4",
     "cz-lerna-changelog": "^2.0.3",
     "lerna": "^4.0.0"
+  },
+  "dependencies": {
+    "@tarojs/plugin-platform-weapp": "^3.4.11"
   }
 }
