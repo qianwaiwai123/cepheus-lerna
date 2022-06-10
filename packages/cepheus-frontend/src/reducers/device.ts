@@ -5,7 +5,7 @@ const INITIAL_STATE = {
     {
       id: '351CA0',
       name: '奶奶',
-      status: 'on',
+      status: 'off',
       age: 68
     }
   ]

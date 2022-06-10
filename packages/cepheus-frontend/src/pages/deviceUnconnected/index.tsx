@@ -3,6 +3,7 @@ import { View, Text, Button } from '@tarojs/components';
 import './index.scss'
 import Iconfont from '../../components/iconfont'
 
+
 export default class DeviceUnconnected extends React.Component<any, any>{
 
   constructor(props) {

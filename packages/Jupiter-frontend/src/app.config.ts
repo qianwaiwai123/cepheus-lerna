@@ -4,7 +4,8 @@ export default defineAppConfig({
   pages: [
     'pages/found/index',
     'pages/profile/index',
-    'pages/message/index'
+    'pages/message/index',
+    'pages/createEvent/index'
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -31,6 +32,6 @@ export default defineAppConfig({
         text: '我的'
       }
     ]
-  },
-  usingComponents: Object.assign(useGlobalIconFont())
+  }
+  // usingComponents: Object.assign(useGlobalIconFont())
 })

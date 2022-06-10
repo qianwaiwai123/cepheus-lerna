@@ -145,8 +145,8 @@ export default class SmartConfig extends React.Component<{},PageState>{
                 <Text className='device__tips'> 连通电源后，看见灯闪烁</Text>
               </View>
               <View className='operation-btn'>
-                <Button className='operation-btn__item operation-btn__item--on' onClick={this.handleLightOn.bind(this)}>已点亮</Button>
-                <Button className='operation-btn__item operation-btn__item--off'>未点亮</Button>
+                <Button className='operation-btn__item operation-btn__item--on' onClick={this.handleLightOn.bind(this)}>设备黄灯已闪烁</Button>
+                <View className='operation-btn__item operation-btn__item--off'>遇到问题</View>
               </View>
             </View>
           );

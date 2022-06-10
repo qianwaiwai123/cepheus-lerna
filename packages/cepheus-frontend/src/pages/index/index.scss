@@ -144,6 +144,13 @@ page {
     &--off {
       @extend %display-flex;
       color: #FFFFFF;
+      background-color: #FDA045;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 30px;
+      justify-content: center;
+      height: 70px;
+      padding: 0 20px;
+      box-sizing: border-box;
     }
   }
   &__header-right-status {

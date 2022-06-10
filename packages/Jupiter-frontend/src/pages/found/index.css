@@ -13,7 +13,7 @@
 .navigationBar {
   display: flex;
   align-items: flex-end;
-  gap: 0.5rem;
+  gap: 0.5rem
 }
 
 .selector {
@@ -28,6 +28,7 @@
   width: 100vw;
   /* white-space: nowrap; */
   /* margin-bottom: 0.5rem; */
+  /* background-color: purple; */
   z-index: 100;
 }
 

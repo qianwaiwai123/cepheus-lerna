@@ -12,8 +12,8 @@ type Props = {
   distance: string;
 }
 
-const titleStyle = {color: 'white', zIndex: '100', fontWeight: 'light', fontSize: '15px'};
-const dateStyle = {color: 'white', zIndex: '1000', fontWeight: 'bold', opacity: '1'};
+const titleStyle = {color: 'white', zIndex: '100', fontWeight: 'bold', fontSize: '17px'};
+const dateStyle = {color: 'white', zIndex: '1000', fontWeight: 'light', opacity: '1', fontSize: '15px'};
 const imageStyle = {width: '20px', height: '20px', marginLeft: '5px'};
 
 const Event = (props: Props) => {
@@ -23,6 +23,7 @@ const Event = (props: Props) => {
         <Image src={props.image}/>
         <View className='shadow' />
         <View className='distance'>{`${props.distance}km`}</View>
+        <View className='space'/>
         <View className='info'>
           <Text style={titleStyle}>{props.name}</Text>
           <View className='time'>
@@ -30,7 +31,7 @@ const Event = (props: Props) => {
             <Text style={dateStyle}>{`${props.startDate} - ${props.endDate}`}</Text>
           </View>
           <View className='tags'>
-            {props.tags.map(tag => <View className='tag'>{tag}</View>)}
+            {props.tags.map(tag => <Text className='tag'>{tag}</Text>)}
           </View>
         </View>
       </View>  
