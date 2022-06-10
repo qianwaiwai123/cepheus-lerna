@@ -1,0 +1,449 @@
+@import '../../app.scss';
+@import '~taro-ui/dist/style/components/calendar.scss';
+
+// %wrapper-padding {
+//   padding: $padding-lg;
+// }
+
+$wrapper-padding: $padding-lg;
+$border-radius-card: 0.75rem;
+$border-radius-status: 0.25rem;
+$label-icon-size: 2rem;
+$label-icon-size-report: 1.75rem;
+$arrow-size: 1rem;
+$avatar-size: 3.5rem;
+$box-shadow-card: 0 0 0.85rem rgba(117, 123, 255, 0.3);
+
+$color-report-blue: rgba(102, 165, 237, 1);
+$color-report-purple: rgba(159, 122, 245, 1);
+
+%panel-style {
+  border-radius: $border-lg;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+%card-style {
+  box-shadow: $box-shadow-card;
+  border-radius: $border-radius-card;
+  background-color: #ffffff;
+}
+
+%card {
+  @extend %card-style;
+  padding: $padding-lg;
+  margin-bottom: $margin-lg;
+}
+
+%flex-r {
+  display: flex;
+  flex-direction: row;
+}
+
+%flex-r-center {
+  @extend %flex-r;
+  align-items: center;
+}
+
+%flex-c {
+  display: flex;
+  flex-direction: column;
+}
+
+%flex-c-center {
+  @extend %flex-c;
+  align-items: center;
+}
+
+%label {
+  @extend %flex-r;
+  align-items: center;
+  padding-bottom: $padding-lg;
+}
+
+%label-icon {
+  width: $label-icon-size;
+  height: $label-icon-size;
+  margin-right: $margin-sm;
+}
+
+%label-text {
+  font-size: $font-lg;
+  letter-spacing: 2px;
+}
+
+%report-card-style {
+  border-radius: $border-radius-card;
+}
+
+%report-card {
+  @extend %report-card-style;
+  padding: $padding-lg;
+}
+
+%status {
+  display: inline-block;
+
+  background-color: $color-green;
+  border-radius: $border-radius-status;
+  color: $color-white;
+  font-weight: bold;
+}
+
+%label-icon-report {
+  width: $label-icon-size-report;
+  height: $label-icon-size-report;
+  margin-right: $margin-sm;
+}
+
+%calendar-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: translate(0, 0);
+  transition: opacity 0.3s, z-index 0.5s, transform 0.3s ease-in-out;
+
+  @extend %flex-r-center;
+  justify-content: center;
+}
+
+%calendar-wrapper-show {
+  @extend %calendar-wrapper;
+  z-index: 1000;
+}
+
+%calendar-wrapper-hide {
+  @extend %calendar-wrapper;
+  opacity: 0;
+  z-index: -1;
+}
+
+%mask {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: $color-bg-mask;
+}
+
+%mask-show {
+  @extend %mask;
+  z-index: 1001;
+}
+
+%mask-hide {
+  @extend %mask;
+  opacity: 0;
+  z-index: -1;
+}
+
+%calendar-style {
+  @extend %panel-style;
+  margin: $margin-lg;
+  width: 80%;
+
+  background-color: white;
+  font-weight: bold;
+}
+
+%calendar-show {
+  @extend %calendar-style;
+  z-index: 1002;
+}
+
+%calendar-hide {
+  @extend %calendar-style;
+  opacity: 0;
+  z-index: -1;
+  transform: scale(0.05);
+}
+
+.sleep {
+  background: url('https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com/wxa/xdu-leyinlin/background.png');
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: calc(100vw - $wrapper-padding * 2);
+  height: calc(100vh - $wrapper-padding * 2);
+  padding: $wrapper-padding;
+
+  @extend %flex-r;
+  align-items: center;
+
+  &__panel {
+    @extend %panel-style;
+    @extend %flex-r-center;
+
+    flex: 1;
+    height: calc(100% - $wrapper-padding * 2);
+    padding: $wrapper-padding;
+
+    justify-content: center;
+  }
+
+  &-left,
+  &-right {
+    @extend %flex-c;
+    height: 100%;
+  }
+
+  &-left {
+    flex: 1;
+    margin-right: $margin-lg;
+  }
+
+  &-right {
+    flex: 2;
+  }
+
+  // 用户信息
+  &__user {
+    @extend %flex-r-center;
+    padding-bottom: $padding-lg;
+
+    &-avatar {
+      @extend %flex-r-center;
+
+      width: $avatar-size;
+      height: $avatar-size;
+      overflow: hidden;
+      border-radius: 50%;
+      border: $border-md solid $color-blue-light;
+
+      justify-content: center;
+      margin-right: $margin-lg;
+
+      &-image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &-info {
+      flex: 1;
+    }
+
+    &-top {
+      @extend %flex-r-center;
+      justify-content: space-between;
+      padding-bottom: $padding-lg;
+    }
+
+    &-realname {
+      font-size: $font-lg;
+      letter-spacing: 2px;
+      color: $color-white;
+    }
+
+    &-action {
+      @extend %flex-r-center;
+
+      &-text {
+        color: $color-white;
+        margin-right: $margin-xs;
+      }
+
+      &-image {
+        width: $arrow-size;
+        height: $arrow-size;
+      }
+    }
+
+    &-bottom {
+      @extend %flex-r-center;
+    }
+
+    &-age {
+      color: $color-white;
+      margin-right: $margin-lg;
+    }
+
+    &-illness {
+      color: $color-white;
+    }
+  }
+
+  // 卡片
+  &__card {
+    @extend %flex-c;
+    @extend %card;
+    margin-bottom: 0;
+    flex: 1;
+  }
+
+  // 卡片 子元素
+  &__item {
+    flex: 1;
+    @extend %flex-c;
+
+    &-content {
+      @extend %flex-c;
+      flex: 1;
+      padding: 0 $padding-sm;
+
+      &--status {
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    &-status {
+      @extend %status;
+
+      font-size: calc($font-lg + 0.5rem);
+      padding: $padding-lg calc($padding-lg * 2);
+      margin-bottom: $margin-lg;
+
+      &--error {
+        background-color: $color-red;
+      }
+    }
+
+    &-description {
+      color: $color-blue;
+    }
+  }
+
+  // 睡眠报告
+  &__report {
+    flex: 1;
+    @extend %flex-r;
+
+    &-card {
+      @extend %flex-c;
+      @extend %report-card;
+      flex: 1;
+      justify-content: space-around;
+
+      &:nth-child(1) {
+        margin-right: $margin-lg;
+        background-color: $color-report-blue;
+      }
+
+      &:nth-child(2) {
+        background-color: $color-report-purple;
+      }
+    }
+
+    &-item {
+    }
+
+    &-label {
+      @extend %flex-r-center;
+      margin-bottom: $margin-lg;
+
+      &-icon {
+        @extend %label-icon-report;
+      }
+
+      &-text {
+        color: $color-white;
+      }
+    }
+
+    &-content {
+      color: $color-white;
+      font-size: calc($font-lg + 0.5rem);
+      font-weight: 600;
+      text-align: center;
+    }
+  }
+
+  // 标签
+  &__label {
+    @extend %label;
+
+    &-icon {
+      @extend %label-icon;
+    }
+
+    &-text {
+      @extend %label-text;
+      &--white {
+        color: $color-font-light;
+      }
+    }
+  }
+
+  &__list {
+    @extend %flex-r;
+    justify-content: space-between;
+    margin-bottom: $margin-lg;
+
+    &-label {
+      font-size: $font-md;
+    }
+
+    &-content {
+      font-size: $font-md;
+      color: $color-font-gray;
+    }
+  }
+
+  // 日历
+  &__calendar {
+    @extend %calendar-wrapper;
+    @extend %calendar-wrapper-show;
+
+    &--hide {
+      @extend %calendar-wrapper-hide;
+    }
+
+    &-mask {
+      @extend %mask-show;
+
+      &--hide {
+        @extend %mask-hide;
+      }
+    }
+
+    &-content {
+      @extend %calendar-show;
+
+      &--hide {
+        @extend %calendar-hide;
+      }
+    }
+  }
+}
+
+/**
+  * 日历组件样式覆盖
+  */
+
+// 左右箭头
+.at-calendar__controller .controller__arrow {
+  flex: 0 0 2rem;
+  height: 2.5rem;
+  background-size: 1rem 1.25rem;
+}
+
+// 年 选择
+.at-calendar__controller {
+  margin-top: $margin-lg;
+  margin-bottom: $margin-lg;
+
+  .controller__info {
+    font-size: calc($font-lg + 0.5rem);
+  }
+}
+
+// 天 选择
+.at-calendar__header .header__flex-item {
+  font-size: $font-md;
+}
+
+// 点击选择日期
+.at-calendar__list.flex {
+  .flex__item-container {
+    width: calc($font-lg + 1rem);
+    height: calc($font-lg + 1rem);
+  }
+
+  .flex__item {
+    font-size: $font-md;
+    margin: 0.5rem 0;
+  }
+}

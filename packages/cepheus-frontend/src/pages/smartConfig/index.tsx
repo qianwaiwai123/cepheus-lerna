@@ -44,21 +44,23 @@ export default class SmartConfig extends React.Component<{},PageState>{
 
   handleIfWifiConnect(){
     Taro.vibrateShort();
-    Taro.getConnectedWifi({
-      success: (res => {
-        if(res.errMsg === 'getConnectedWifi:ok'){
-          this.setState({
-            ssid: res.wifi.SSID,
-            current: 2
+    Taro.startWifi().then(() => {
+      Taro.getConnectedWifi({
+        success: (res => {
+          if(res.errMsg === 'getConnectedWifi:ok'){
+            this.setState({
+              ssid: res.wifi.SSID,
+              current: 2
+            })
+          }
+        }),
+        fail: ((res) => {
+          Taro.showModal({
+            title: '连接失败',
+            content: res.errMsg,
+            showCancel: false,
+            confirmText: '确认'
           })
-        }
-      }),
-      fail: ((res) => {
-        Taro.showModal({
-          title: '连接失败',
-          content: res.errMsg,
-          showCancel: false,
-          confirmText: '确认'
         })
       })
     })
