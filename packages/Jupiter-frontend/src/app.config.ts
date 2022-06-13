@@ -2,10 +2,14 @@ import { useGlobalIconFont } from '../iconfont/helper';
 
 export default defineAppConfig({
   pages: [
+    // 'pages/login/index',
+    
     'pages/found/index',
+    'pages/eventDetail/index',
     'pages/profile/index',
     'pages/message/index',
-    'pages/createEvent/index'
+    'pages/createEvent/index',
+
   ],
   window: {
     backgroundTextStyle: 'light',
