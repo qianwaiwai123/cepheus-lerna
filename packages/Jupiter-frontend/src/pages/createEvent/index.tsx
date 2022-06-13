@@ -27,20 +27,20 @@ const SERVER_PORT_NUMBER = 'http://localhost:3000'
 
 const CreateEvent = () => {
   // Raw terms data from backend
-  const [existCategories, setExistCategories] = React.useState([]);
-  const [existTags, setExistTags] = React.useState([]);
+  const [existCategories, setExistCategories] = React.useState<any>([]);
+  const [existTags, setExistTags] = React.useState<any>([]);
 
-  const [categories, setCategories] = React.useState([]);
+  const [categories, setCategories] = React.useState<any>([]);
   const [isAddTagOpen, setIsAddTagOpen] = React.useState(false);
   const [isSaveDraft, setIsSaveDraft] = React.useState(false);
   const [isSubmitEvent, setIsSubmitEvent] = React.useState(false);
-  const [fid, setFid] = React.useState('');
+  const [fid, setFid] = React.useState<any>('');
 
   const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(-1);
-  const [tags, setTags] = React.useState([]);
-  const [tag, setTag] = React.useState('');
-  const [overviewImages, setOverviewImages] = React.useState([]);
-  const [detailImages, setDetailImages] = React.useState([]);
+  const [tags, setTags] = React.useState<any>([]);
+  const [tag, setTag] = React.useState<any>('');
+  const [overviewImages, setOverviewImages] = React.useState<any>([]);
+  const [detailImages, setDetailImages] = React.useState<any>([]);
   
 
   // create event dto
@@ -49,8 +49,8 @@ const CreateEvent = () => {
   const [address, setAddress] = React.useState('');
   const [categoryUuid, setCategoryUuid] = React.useState('');
   const [date, setDate] = React.useState('');
-  const [tagUuids, setTagUuids] = React.useState([]);
-  const [fids, setFids] = React.useState([]);
+  const [tagUuids, setTagUuids] = React.useState<any>([]);
+  const [fids, setFids] = React.useState<any>([]);
   const [longitude, setLongitude] = React.useState('');
   const [latitude, setLatitude] = React.useState('');
 
@@ -79,9 +79,9 @@ const CreateEvent = () => {
           .then(data => {
             // console.log('terms: ' + data);
             const terms = JSON.parse(data);
-            let tempCategories = [];
-            let tempExistCategories = [];
-            let tempExistTags = [];
+            let tempCategories:any[] = [];
+            let tempExistCategories: any[] = [];
+            let tempExistTags: any[] = [];
             terms.map(item => {
               if (item.taxonomy === 'CATEGORY') {
                 tempCategories.push(item.name);
@@ -200,7 +200,7 @@ const CreateEvent = () => {
   }
 
   const uploadImage = () => {
-    let temp = [];
+    let temp:any = [];
     overviewImages.map(image => {
       Taro.uploadFile({
         url: 'https://cepheus-bff.beehomeplus.cn/media/upload',
@@ -208,19 +208,18 @@ const CreateEvent = () => {
         name: 'file',
         header: {
           'Authorization': tempToken
+        },
+        success(res) {
+          const fid: string =(JSON.parse(res.data).file.fid);
+          temp.push(fid);
+          console.log(temp);
+          setFids(temp);
         }
-        // success(res) {
-        //   const fid: string =(JSON.parse(res.data).file.fid);
-        //   temp.push(fid);
-        //   console.log(temp);
-        //   setFids(temp);
-        // }
       })
-        .then(res => {
-          // console.log(JSON.parse(res.data).file.fid);
-          const newFid =(JSON.parse(res.data).file.fid);
-          setFid(newFid);
-        })
+        // .then(res => {
+        //   const newFid =(JSON.parse(res.data).file.fid);
+        //   setFid(newFid);
+        // })
     })
   }
 
@@ -268,13 +267,13 @@ const CreateEvent = () => {
   // select event location
   const chooseLocationHandler = () => {
     Taro.vibrateShort();
-    Taro.chooseLocation()
-      .then(res => {
-        // console.log(res);
+    Taro.chooseLocation({
+      success: (res) => {
         setAddress(res.address);
         setLongitude(res.longitude);
         setLatitude(res.latitude);
-      })
+      }
+    })
   }
 
   

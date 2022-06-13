@@ -161,7 +161,7 @@ export default class SmartConfig extends React.Component<{},PageState>{
               </View>
               <View className='operation-btn'>
                 <Button className='operation-btn__item operation-btn__item--on' onClick={this.handleIfWifiConnect.bind(this)}>已连接</Button>
-                <Button className='operation-btn__item operation-btn__item--off'>未连接</Button>
+                {/*<Button className='operation-btn__item operation-btn__item--off'>未连接</Button>*/}
               </View>
             </View>
           );

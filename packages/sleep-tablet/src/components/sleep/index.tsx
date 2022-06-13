@@ -1,23 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useRouter } from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
-// import { useToast } from 'taro-hooks';
 import { AtCalendar } from 'taro-ui';
 import { postRequest } from '../../api/axiosReq';
+import { SleepReportData, SleepUserInfo } from '../../api/sleep';
 
 import './index.scss';
-
-// type SleepData = {
-//   devcode: string;
-//   na: number | string;
-//   ratio_of_sleep: number | string;
-//   sleepAll: number | string;
-//   sleepBed: number | string;
-//   sleepEnd: string;
-//   sleepLatency: number | string;
-//   sleepStart: string;
-//   waso: number | string;
-// };
 
 const baseUrl = 'https://cepheus-bff.leyinlin.com/admin';
 const imageBaseUrl = 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com';
@@ -25,8 +13,7 @@ const imageBaseUrl = 'https://beehplus-wxa.oss-cn-hangzhou.aliyuncs.com';
 const Sleep = () => {
   const router = useRouter();
 
-  const [healthData, setHealthData] = useState({
-    devcode: '',
+  const [healthData, setHealthData] = useState<SleepReportData>({
     na: 0,
     ratio_of_sleep: 0,
     sleepAll: 0,
@@ -36,18 +23,10 @@ const Sleep = () => {
     sleepStart: '暂无',
     waso: 0
   });
-  const [userData, setUserData] = useState({
-    addr: '暂无',
+  const [userData, setUserData] = useState<SleepUserInfo>({
     age: 0,
-    area: '暂无',
-    birthday: '暂无',
-    body_weight: 0,
-    call_phone: '暂无',
-    city: '暂无',
     disease_history: '暂无',
-    gender: 0,
-    name: '姓名',
-    province: '暂无'
+    name: '姓名'
   });
   const [datetime, setDatetime] = useState('');
   const [show, setShow] = useState(false);
@@ -83,7 +62,6 @@ const Sleep = () => {
     const result = await postRequest(url, params);
     const res = {
       ...result,
-      devcode: result.devcode ? result.devcode : '暂无数据',
       na: result.na ? result.na : '暂无数据',
       ratio_of_sleep: result.ratio_of_sleep
         ? result.ratio_of_sleep
