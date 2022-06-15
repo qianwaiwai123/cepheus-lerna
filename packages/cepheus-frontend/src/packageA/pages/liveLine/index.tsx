@@ -1,4 +1,5 @@
 import React from 'react'
+import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
 // @ts-ignore
 import * as echarts from '../../components/ec-canvas/echarts'
@@ -150,7 +151,38 @@ export default class LiveLine extends React.Component<any, any>{
   state = {
     ec: {
       onInit: initChart
-    }
+    },
+
+  }
+
+
+
+  componentDidMount() {
+    Taro.connectSocket({
+      url: 'ws://localhost:8080'
+    }).then((task) => {
+      task.onMessage((msg) => {
+        console.log('msg:',msg)
+      })
+
+      task.onOpen((res) => {
+        console.log('open', res)
+        task.send({
+          data: JSON.stringify({
+            event: 'events',
+            data: 'test'
+          }),
+          success: (result) => {
+            console.log('send',result)
+          },
+          fail: (err) => {
+            console.log(err)
+          }
+        })
+      })
+
+
+    })
   }
 
   componentWillUnmount() {
